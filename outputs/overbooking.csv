@@ -1,0 +1,31 @@
+event_id,artista,capacidad,entradas_vendidas,esperado,pct_cortesia,puede_vender_mas,riesgo_actual_desborde
+ft_evt_0006,Mala Hora,180,122,60,1.0,159,0.0
+ft_evt_0007,Mala Hora,120,78,38,1.0,113,0.0
+ft_evt_0008,Mala Hora,120,58,50,0.069,74,0.0
+ft_evt_0009,Mala Hora,120,37,32,0.081,94,0.0
+ft_evt_0014,Micrófono Suelto,220,120,70,0.442,226,0.0
+ft_evt_0015,Micrófono Suelto,250,115,64,0.4,312,0.0
+ft_evt_0016,Micrófono Suelto,220,88,49,0.557,264,0.0
+ft_evt_0017,Micrófono Suelto,120,48,32,0.312,122,0.0
+ft_evt_0023,Doble Sentido,250,192,159,0.167,98,0.0
+ft_evt_0024,Doble Sentido,150,80,63,0.225,97,0.0
+ft_evt_0025,Doble Sentido,220,98,83,0.071,152,0.0
+ft_evt_0026,Doble Sentido,220,63,52,0.143,192,0.0
+ft_evt_0032,La Bodega Improvisa,250,201,150,0.323,119,0.0
+ft_evt_0033,La Bodega Improvisa,180,88,64,0.193,143,0.0
+ft_evt_0034,La Bodega Improvisa,120,61,45,0.328,90,0.0
+ft_evt_0035,La Bodega Improvisa,180,67,54,0.239,143,0.0
+ft_evt_0040,Trasnoche Cali,150,118,94,0.212,61,0.0
+ft_evt_0041,Trasnoche Cali,150,94,73,0.234,87,0.0
+ft_evt_0042,Trasnoche Cali,150,71,54,0.268,115,0.0
+ft_evt_0043,Trasnoche Cali,150,65,27,1.0,199,0.0
+ft_evt_0044,Trasnoche Cali,220,56,45,0.161,203,0.0
+ft_evt_0046,Tres Sillas,1200,427,293,0.311,1233,0.0
+ft_evt_0048,Cuento Corto,450,210,152,0.281,381,0.0
+ft_evt_0050,Sin Filtro,800,424,367,0.019,483,0.0
+ft_evt_0052,Segunda Función,800,436,300,0.342,660,0.0
+ft_evt_0054,Cuento Corto,800,273,107,1.0,1250,0.0
+ft_evt_0056,Sin Filtro,450,378,317,0.005,147,0.0
+ft_evt_0058,Roast de Medianoche,250,232,96,1.0,224,0.0
+ft_evt_0060,Sin Filtro,800,623,238,1.0,924,0.0
+ft_evt_0062,Los del Fondo,600,286,98,1.0,984,0.0

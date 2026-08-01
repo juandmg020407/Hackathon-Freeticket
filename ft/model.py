@@ -161,7 +161,7 @@ def evaluar_loo(filas_julio, por_evento):
     veces.
     """
     eventos = sorted(por_evento)
-    errores, resid_logit, var_azar, detalle = [], [], [], []
+    errores, resid_logit, var_azar, pct_cortesia, detalle = [], [], [], [], []
     for ev in eventos:
         train = [f for f in filas_julio if f["event_id"] != ev]
         test = por_evento[ev]
@@ -177,12 +177,44 @@ def evaluar_loo(filas_julio, por_evento):
         # varianza binomial de la tasa, propagada a logit por delta-method
         var_tasa = float((p * (1 - p)).sum()) / n ** 2
         var_azar.append(var_tasa / (b * (1 - b)) ** 2)
+        pct_cortesia.append(float(np.mean([bool(f["es_cortesia"]) for f in test])))
         detalle.append((ev, n, obs, pred))
-    return np.array(errores), np.array(resid_logit), np.array(var_azar), detalle
+    return (np.array(errores), np.array(resid_logit), np.array(var_azar),
+            np.array(pct_cortesia), detalle)
+
+
+class ShockDeShow:
+    """Cuánta incertidumbre añadir por show, según su mezcla de entradas.
+
+    Un shock constante reparte mal el margen. Medido sobre julio: con un sigma
+    unico, los shows de poca cortesia quedan cubiertos al 94% (intervalo
+    demasiado ancho, no informa) y los de mucha cortesia al 60% (demasiado
+    estrecho, engana). El error del modelo en cortesias es cuatro veces el de
+    las pagadas, asi que el margen tiene que crecer con la proporcion de
+    cortesia en vez de repartirse a partes iguales.
+
+    Se ajusta la varianza del residuo como recta en pct_cortesia y se le resta
+    el azar de la puerta, que ya lo simula la Poisson-binomial.
+    """
+
+    def __init__(self, resid_logit, var_azar, pct_cortesia):
+        y = resid_logit ** 2 - var_azar          # varianza atribuible al show
+        X = np.column_stack([np.ones_like(pct_cortesia), pct_cortesia])
+        self.coef_ = np.linalg.lstsq(X, y, rcond=None)[0]
+        # suelo: nunca menos varianza que la media global de la parte baja
+        self.piso_ = max(float(np.percentile(np.maximum(y, 0), 10)), 1e-4)
+
+    def sigma(self, pct_cortesia: float) -> float:
+        var = self.coef_[0] + self.coef_[1] * float(pct_cortesia)
+        return float(np.sqrt(max(var, self.piso_)))
+
+    def __repr__(self):
+        return (f"ShockDeShow(sigma(0%)={self.sigma(0):.3f}, "
+                f"sigma(50%)={self.sigma(.5):.3f}, sigma(100%)={self.sigma(1):.3f})")
 
 
 def sigma_show(resid_logit, var_azar) -> float:
-    """Desviacion del shock por show, ya descontado el azar de la puerta."""
+    """Shock unico, sin distinguir mezcla. Se mantiene como referencia."""
     var_total = float(np.var(resid_logit, ddof=1))
     var = max(var_total - float(np.mean(var_azar)), 1e-4)
     return float(np.sqrt(var))

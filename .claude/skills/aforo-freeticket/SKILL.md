@@ -39,6 +39,7 @@ python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
 python -m ft.consulta ft_evt_0060       # un show por id
 python -m ft.consulta --agenda          # los 30 shows de agosto, en orden
 python -m ft.consulta --vacios          # los que van a quedar más vacíos
+python -m ft.consulta --sobreventa      # cuántas entradas más caben sin riesgo
 python -m ft.consulta --modelo          # qué tan bien predice y qué supone
 python -m ft.consulta --json            # todo estructurado, para graficar
 ```
@@ -88,6 +89,20 @@ Al construir la visualización:
 - No inventes series que el JSON no trae (histórico de ventas, ingresos por
   show, comparación con años anteriores): esos datos no existen aquí.
 
+## El techo de venta no es la capacidad
+
+Si de cada entrada entra el 64%, vender justo hasta el aforo deja la sala a dos
+tercios. El límite real es **el riesgo de que no quepan**, y eso se calcula:
+`--sobreventa` dice cuántas entradas más admite cada show con un 5% de riesgo de
+desborde.
+
+Lo contraintuitivo, y conviene explicarlo cuando salga: los shows con **más
+cortesías admiten más sobreventa**, porque su tasa de asistencia es más baja. La
+cortesía no es papel gratis, es inventario que consume cupo de riesgo.
+
+Al presentarlo, di siempre el riesgo asumido (5% por show) y el supuesto: que
+las próximas entradas se parezcan a las ya vendidas.
+
 ## Preguntas frecuentes y dónde está la respuesta
 
 | pregunta | comando |
@@ -95,6 +110,7 @@ Al construir la visualización:
 | ¿cuánta gente entra al show del viernes? | `ft.consulta <artista o id>` |
 | ¿cuántos vienen en total en agosto? | `ft.consulta --agenda` |
 | ¿cuáles van a quedar vacíos? | `ft.consulta --vacios` |
+| ¿puedo vender más entradas? | `ft.consulta --sobreventa` |
 | ¿cuánta gente pongo en la puerta? | `python -m ft.puerta <event_id>` genera la página |
 | ¿a qué hora llega la gente? | `python -m ft.llegada` |
 | ¿qué tan confiable es esto? | `ft.consulta --modelo` |

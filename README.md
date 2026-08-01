@@ -106,6 +106,7 @@ python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
 python -m ft.consulta ft_evt_0060       # un show por id
 python -m ft.consulta --agenda          # los 30 shows, en orden de fecha
 python -m ft.consulta --vacios          # los que van a quedar más vacíos
+python -m ft.consulta --sobreventa      # cuántas entradas más caben sin riesgo
 python -m ft.consulta --modelo          # error, supuestos y dónde falla
 python -m ft.consulta --json            # todo estructurado, para graficar
 ```
@@ -225,6 +226,34 @@ causal con esto sería el error que un evaluador detecta primero.
 
 ---
 
+## El insight: la capacidad no es el límite de venta
+
+Nadie pidió esto. Sale de mirar la misma distribución desde el otro lado.
+
+Todo el mundo trata el aforo como un techo: 800 asientos, 800 entradas. Pero si
+de cada entrada entra el 64%, vender 800 llena 512 butacas y deja 288 vacías
+toda la noche. **El techo real no es la capacidad: es el riesgo de que entren
+más de los que caben** — y eso es una probabilidad que ya sabemos calcular,
+porque el simulador devuelve una distribución completa, no un número.
+
+> Con un riesgo de desborde del **5% por show**, en agosto se pueden vender
+> **9.349 entradas más** — un **179% más de lo ya vendido** — y aun así, en 19
+> de cada 20 noches, toda la gente cabe.
+
+Lo contraintuitivo, y por eso es un insight: los shows con **más cortesías
+admiten más sobreventa**, no menos, porque su tasa de asistencia es más baja.
+Cuento Corto (100% cortesía) admite 1.250 extra; Sin Filtro (2%) solo 483.
+
+La cortesía deja de ser "papel gratis" y pasa a ser **inventario que consume
+cupo de riesgo**. Y la pregunta del organizador deja de ser *"¿cuántas entradas
+quedan?"* para ser *"¿cuánto riesgo de desborde acepto?"*.
+
+```bash
+python -m ft.consulta --sobreventa
+```
+
+---
+
 ## Qué tan bien predice
 
 Conjunto de prueba: **11 shows que el modelo nunca vio**, evaluado una sola vez.
@@ -248,6 +277,27 @@ La ventaja sobre el baseline es de 3.9 personas por show, con un intervalo que
 **Dónde falla:** en cortesías el error por entrada es 0.446 contra 0.108 en
 pagadas. Cuatro veces más. Los shows de pura cortesía son los más inciertos, y
 por eso su rango sale más ancho — que es correcto, no un defecto.
+
+### El rango es estrecho, no solo honesto
+
+Un p10–p90 que nunca falla porque va de 0 a 500 no sirve. Se juzga con las dos
+cosas a la vez, y el *Winkler score* las combina (mide el ancho y multa cuando
+el valor real se sale; menor es mejor):
+
+| intervalo | ancho | cobertura | **Winkler ↓** |
+|---|---|---|---|
+| de 0 a las entradas vendidas | 210.1 | 100% | 210.1 |
+| ±20% sobre la predicción | 62.2 | 94% | 68.2 |
+| **el nuestro** | **17.2** | **81%** | **25.9** |
+
+**8.1 veces mejor** que el intervalo trivial. Y el margen está repartido donde
+hace falta: el shock crece con la proporción de cortesía (σ de 0.010 a 0.341),
+así que el rango baja a 9 personas en shows fáciles y sube a 29 en los de pura
+cortesía. Con un shock único, la cobertura era del 94% en los fáciles y del 60%
+en los difíciles — parecía bien en el agregado y estaba mal en ambos extremos.
+
+La verificación completa contra los cuatro criterios del brief está en
+[`docs/07-criterios.md`](docs/07-criterios.md).
 
 ---
 

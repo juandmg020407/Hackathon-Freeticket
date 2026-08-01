@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 """Pipeline de punta a punta.
 
     python run.py                descarga (con cache), cruza, proyecta y prescribe
@@ -10,24 +10,27 @@
 import sys
 import time
 
-from ft import fetch, forecast, match, prescribe
+from ft import fetch, forecast, match, overbooking, prescribe
 
 
 def main() -> int:
     t0 = time.time()
     force = "--force" in sys.argv
 
-    print("[1/4] Datos")
+    print("[1/5] Datos")
     fetch.main(force=force)
 
-    print("\n[2/4] Cruce Boom <-> FreeTicket")
+    print("\n[2/5] Cruce Boom <-> FreeTicket")
     match.main()
 
-    print("\n[3/4] Proyeccion de agosto")
+    print("\n[3/5] Proyeccion de agosto")
     forecast.main()
 
-    print("\n[4/4] Acciones recomendadas")
+    print("\n[4/5] Acciones recomendadas")
     prescribe.main()
+
+    print("\n[5/5] Sobreventa segura")
+    overbooking.main()
 
     if "--experimento" in sys.argv:
         print("\n[extra] Comparacion de modelos")
@@ -40,9 +43,10 @@ def main() -> int:
         puerta.generar()
 
     print(f"\nListo en {time.time() - t0:.1f}s — outputs/: matches.csv, "
-          f"forecast.csv, acciones.csv")
+          f"forecast.csv, acciones.csv, overbooking.csv")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -8,6 +8,7 @@ reports/metrics.json — nunca se inventa un número.
     python -m ft.consulta ft_evt_0060       por id de evento
     python -m ft.consulta --agenda          los shows que vienen, en orden
     python -m ft.consulta --vacios          los que van a quedar más vacíos
+    python -m ft.consulta --sobreventa      cuántas entradas más caben sin riesgo
     python -m ft.consulta --modelo          qué tan bien predice y qué supone
     python -m ft.consulta --json            todo en JSON, para graficar
 """
@@ -179,6 +180,48 @@ def agenda() -> str:
     return "\n".join(L)
 
 
+def sobreventa(n: int = 10) -> str:
+    """Cuántas entradas más se pueden vender sin que la gente no quepa."""
+    ruta = OUTPUTS / "overbooking.csv"
+    if not ruta.exists():
+        return "Falta outputs/overbooking.csv. Corre `python -m ft.overbooking`."
+    filas = list(csv.DictReader(ruta.open(encoding="utf-8")))
+    extra = sum(int(r["puede_vender_mas"]) for r in filas)
+    vend = sum(int(r["entradas_vendidas"]) for r in filas)
+    cap = sum(int(r["capacidad"]) for r in filas)
+
+    L = [
+        "La capacidad de la sala no es el límite de venta.",
+        "",
+        f"Entradas ya vendidas para agosto: {vend:,}",
+        f"Capacidad total de las salas:     {cap:,}",
+        f"Se pueden vender ADEMÁS:          {extra:,} "
+        f"({extra / vend:.0%} más de lo vendido)",
+        "",
+        "…y aun así, en 19 de cada 20 noches, toda la gente cabe. Si de cada",
+        "entrada entra el 64%, vender justo hasta la capacidad deja la sala a",
+        "dos tercios. El techo real no es el aforo: es el riesgo de desborde,",
+        "y ese se calcula.",
+        "",
+        f"{'show':24} {'cap':>5} {'vend':>6} {'entran':>7} {'cortesía':>9} {'+vender':>9}",
+    ]
+    for r in sorted(filas, key=lambda x: -int(x["puede_vender_mas"]))[:n]:
+        L.append(f"{r['artista'][:24]:24} {r['capacidad']:>5} "
+                 f"{r['entradas_vendidas']:>6} {r['esperado']:>7} "
+                 f"{float(r['pct_cortesia']):>8.0%} {r['puede_vender_mas']:>9}")
+    L += [
+        "",
+        "Lo contraintuitivo: los shows con MÁS cortesías admiten MÁS sobreventa,",
+        "porque su tasa de asistencia es más baja. La cortesía deja de ser papel",
+        "gratis y pasa a ser inventario que consume cupo de riesgo.",
+        "",
+        "Riesgo fijado en 5% por show. Supone que las próximas entradas se",
+        "parecen a las ya vendidas — si se venden a otro público, hay que",
+        "recalcular.",
+    ]
+    return "\n".join(L)
+
+
 def vacios(n: int = 8) -> str:
     """Los shows con menor llenado esperado y qué palanca les conviene."""
     pron = _cargar("forecast_detalle.csv")
@@ -331,6 +374,8 @@ def main(argv: list[str]) -> int:
         print(agenda())
     elif arg == "--vacios":
         print(vacios())
+    elif arg in ("--sobreventa", "--overbooking"):
+        print(sobreventa())
     elif arg == "--json":
         texto = datos_json()
         # tambien a disco: redirigir con `>` en PowerShell le mete un BOM y
