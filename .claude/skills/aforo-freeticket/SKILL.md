@@ -34,15 +34,23 @@ vendido: es el aforo esperado y la mezcla que lo explica.
 Todo sale de comandos. **Nunca inventes una cifra**: si el comando no la da, no
 existe.
 
+Las rutas son relativas a esta carpeta (la de la skill), y funcionan igual
+dentro del repositorio que instalada suelta:
+
 ```bash
-python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
-python -m ft.consulta ft_evt_0060       # un show por id
-python -m ft.consulta --agenda          # los 30 shows de agosto, en orden
-python -m ft.consulta --vacios          # los que van a quedar más vacíos
-python -m ft.consulta --sobreventa      # cuántas entradas más caben sin riesgo
-python -m ft.consulta --modelo          # qué tan bien predice y qué supone
-python -m ft.consulta --json            # todo estructurado, para graficar
+python scripts/aforo.py "Sin Filtro"      # todos los shows de ese acto
+python scripts/aforo.py ft_evt_0060       # un show por id
+python scripts/aforo.py --agenda          # los 30 shows de agosto, en orden
+python scripts/aforo.py --vacios          # los que van a quedar más vacíos
+python scripts/aforo.py --sobreventa      # cuántas entradas más caben sin riesgo
+python scripts/aforo.py --llegada         # a qué hora llega la gente y cuánta puerta
+python scripts/aforo.py --modelo          # qué tan bien predice y qué supone
+python scripts/aforo.py --json            # todo estructurado, para graficar
 ```
+
+No hace falta token, ni `pip install`, ni correr ningún pipeline: el script es
+stdlib pura y lee un solo archivo, `data/dashboard.json`. Dentro del repositorio
+`python -m ft.consulta …` hace exactamente lo mismo.
 
 Prefiere estos comandos antes que escribir tu propio script sobre los CSV: ya
 resuelven los cruces y los formatos, y en PowerShell un `python -c` con
@@ -53,12 +61,26 @@ La salida ya viene estructurada en tres bloques —el veredicto, el **porqué** 
 la pegues cruda si la pregunta era concreta: si preguntan "¿cuánta gente
 entra?", responde el número y el rango, y ofrece el resto.
 
-Si falta el pronóstico, el comando lo dice: hay que correr `python run.py`
-antes. No lo estimes tú.
+## De cuándo son las cifras
+
+Cada salida abre con una línea de procedencia: de dónde salieron los datos y
+cuándo se generaron. **Trasládala cuando importe**, sobre todo si el aviso dice
+que están viejos: los shows siguen vendiendo, así que un dashboard de hace dos
+semanas ya no refleja lo adquirido hoy.
+
+Hay dos formas de refrescar, y **no son lo mismo**:
+
+- `python scripts/aforo.py --actualizar` baja el dashboard **publicado** en el
+  repositorio. Segundos, sin dependencias. Es el que debes sugerir.
+- `python scripts/aforo.py --recalcular TU-NOMBRE` vuelve a bajar los datos
+  crudos del API y **recalcula** el pronóstico entero. Refleja lo vendido hasta
+  hoy, pero clona el repositorio, instala numpy/pandas/scipy/sklearn y tarda
+  ~60 s. **No lo ejecutes por tu cuenta**: menciónalo y deja que el usuario
+  decida, porque instala paquetes y escribe un token en su disco.
 
 ## Las tres palancas, y cuánto creerles
 
-Cuando un show va flojo, `ft.consulta` lista acciones ordenadas por impacto.
+Cuando un show va flojo, `aforo.py` lista acciones ordenadas por impacto.
 Cada una viene con la **fuerza de su supuesto**, y eso hay que trasladarlo al
 usuario:
 
@@ -74,9 +96,11 @@ sería engañar. Di "lo que se observó", no "lo que va a pasar".
 
 ## Si piden un tablero, un gráfico o un artifact
 
-`python -m ft.consulta --json` devuelve los 30 shows con aforo, rango, mezcla,
-llenado, asientos libres y palancas, más la ficha del modelo. También lo deja en
-`outputs/dashboard.json`. **Úsalo como fuente y no transcribas cifras a mano.**
+`python scripts/aforo.py --json` devuelve los 30 shows con aforo, rango, mezcla,
+llenado, asientos libres y palancas, más la sobreventa segura, la curva de
+llegada y la ficha del modelo. **Úsalo como fuente y no transcribas cifras a
+mano.** (Es el mismo contenido de `data/dashboard.json`, así que también puedes
+leer ese archivo directamente.)
 
 Al construir la visualización:
 
@@ -105,17 +129,24 @@ las próximas entradas se parezcan a las ya vendidas.
 
 ## Preguntas frecuentes y dónde está la respuesta
 
+Todos son `python scripts/aforo.py …` salvo donde se diga otra cosa:
+
 | pregunta | comando |
 |---|---|
-| ¿cuánta gente entra al show del viernes? | `ft.consulta <artista o id>` |
-| ¿cuántos vienen en total en agosto? | `ft.consulta --agenda` |
-| ¿cuáles van a quedar vacíos? | `ft.consulta --vacios` |
-| ¿puedo vender más entradas? | `ft.consulta --sobreventa` |
-| ¿cuánta gente pongo en la puerta? | está publicado: `juandmg020407.github.io/Hackathon-Freeticket/<event_id>.html` · se regenera con `python -m ft.puerta` |
-| ¿a qué hora llega la gente? | `python -m ft.llegada` |
-| ¿qué tan confiable es esto? | `ft.consulta --modelo` |
-| ¿a quién invito? | la palanca "invitar"; el detalle por persona está en `ft.prescribe` |
-| hazme un tablero / gráfico | `ft.consulta --json` y construye desde ahí |
+| ¿cuánta gente entra al show del viernes? | `<artista o id>` |
+| ¿cuántos vienen en total en agosto? | `--agenda` |
+| ¿cuáles van a quedar vacíos? | `--vacios` |
+| ¿puedo vender más entradas? | `--sobreventa` |
+| ¿a qué hora llega la gente y cuánta puerta pongo? | `--llegada` |
+| ¿qué tan confiable es esto? | `--modelo` |
+| hazme un tablero / gráfico | `--json` y construye desde ahí |
+| ¿estos datos están al día? | la línea de procedencia; refresca con `--actualizar` |
+| dame el link de puerta del show | está publicado: `juandmg020407.github.io/Hackathon-Freeticket/<event_id>.html` · regenerarlo pide el repositorio (`python run.py --puerta`) |
+| ¿a quién invito? | la palanca "invitar"; el detalle **por persona** solo existe en el repositorio (`python -m ft.prescribe`) |
+
+Las dos últimas son las únicas que no se responden desde una instalación suelta:
+una necesita el repositorio y la otra ya está publicada como página. Dilo en vez
+de improvisar un nombre o un número.
 
 ## Lo que esta skill NO puede responder
 
@@ -123,8 +154,8 @@ Dilo claramente en vez de improvisar:
 
 - **Shows de julio.** Ya pasaron: su asistencia es un dato, no una predicción.
 - **Aforo final de un show que sigue vendiendo.** Solo se proyectan las entradas
-  **ya adquiridas**. Para los shows de fin de mes hay que volver a correr el
-  pipeline cerca de la fecha.
+  **ya adquiridas** a la fecha que dice la línea de procedencia. Para los shows
+  de fin de mes hay que recalcular cerca de la fecha (`--recalcular`).
 - **Qué pasa si subo el precio.** No hay experimento de precios en los datos.
 - **Datos de una plataforma consultando la otra.** Una petición toca una sola
   plataforma; el cruce ya está hecho y vive en `outputs/matches.csv`.
@@ -139,16 +170,23 @@ Dilo claramente en vez de improvisar:
 
 ## Instalación
 
+Un comando, en cualquier agente (Claude Code, Codex, Cursor, Copilot y ~30 más):
+
 ```bash
-git clone https://github.com/juandmg020407/Hackathon-Freeticket
-cd Hackathon-Freeticket && pip install -r requirements.txt
-curl "https://hackathon-freeticket.vercel.app/api/setup?handle=TU-NOMBRE" -o setup.json
-python run.py
+npx skills add juandmg020407/Hackathon-Freeticket -g
 ```
 
-Esta skill vive en `.claude/skills/aforo-freeticket/`, así que Claude Code la
-carga sola al abrir el proyecto. Para usarla desde cualquier carpeta, copia esa
-carpeta a `~/.claude/skills/`.
+O como plugin nativo de Claude Code:
 
-Todos los comandos se ejecutan **desde la raíz del repositorio**, que es donde
-están `outputs/` y `raw/`.
+```
+/plugin marketplace add juandmg020407/Hackathon-Freeticket
+/plugin install aforo-freeticket@freeticket-hackathon
+```
+
+No hace falta nada más: **ni clonar, ni `pip install`, ni token, ni pipeline.**
+La skill trae sus propios datos en `data/dashboard.json` y el script que los lee
+es stdlib pura. Funciona sin conexión.
+
+Si además tienes el repositorio abierto, los comandos detectan
+`outputs/dashboard.json` y usan el dato recién calculado en vez de la copia
+congelada — la línea de procedencia dice cuál está usando.

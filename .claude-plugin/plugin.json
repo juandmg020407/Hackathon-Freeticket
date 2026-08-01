@@ -1,0 +1,13 @@
+{
+  "name": "aforo-freeticket",
+  "displayName": "Aforo FreeTicket",
+  "version": "1.0.0",
+  "description": "Cuánta gente entra realmente a cada show de agosto, por qué, y qué hacer para llenarlo",
+  "author": {
+    "name": "Juan Morales"
+  },
+  "homepage": "https://github.com/juandmg020407/Hackathon-Freeticket",
+  "repository": "https://github.com/juandmg020407/Hackathon-Freeticket",
+  "keywords": ["aforo", "forecast", "asistencia", "eventos", "freeticket", "boom"],
+  "skills": "./.claude/skills/"
+}

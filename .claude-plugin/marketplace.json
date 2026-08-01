@@ -1,0 +1,15 @@
+{
+  "name": "freeticket-hackathon",
+  "description": "La skill de aforo del hackathon FreeTicket",
+  "owner": {
+    "name": "Juan Morales",
+    "url": "https://github.com/juandmg020407"
+  },
+  "plugins": [
+    {
+      "name": "aforo-freeticket",
+      "source": "./",
+      "description": "Cuánta gente entra realmente a cada show de agosto, por qué, y qué hacer para llenarlo"
+    }
+  ]
+}

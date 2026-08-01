@@ -36,7 +36,41 @@ mal el segundo show por más de 350 personas.
 
 ---
 
-## Empezar en tres minutos
+## Instalar la skill: un comando
+
+```bash
+npx skills add juandmg020407/Hackathon-Freeticket -g
+```
+
+Eso es todo. Funciona en **Claude Code, Codex, Cursor, Copilot y ~30 agentes
+más** (`-a claude-code -a codex` para elegir). **Ni clonar, ni `pip install`, ni
+token, ni pipeline:** la skill trae sus propios datos y el script que los lee es
+stdlib pura. Funciona sin conexión.
+
+Como plugin nativo de Claude Code, con actualizaciones:
+
+```
+/plugin marketplace add juandmg020407/Hackathon-Freeticket
+/plugin install aforo-freeticket@freeticket-hackathon
+```
+
+En **ChatGPT** (web) no hay soporte de skills: sube `SKILL.md` y
+`data/dashboard.json` como archivos de un Project. Ahí el modelo lee el JSON
+pero no ejecuta el script, así que responde peor — es la vía degradada.
+
+Después, pregunta en español. Y para poner al día las cifras:
+
+| comando | qué hace |
+|---|---|
+| `python scripts/aforo.py --actualizar` | baja el dashboard publicado. Segundos, sin dependencias |
+| `python scripts/aforo.py --recalcular TU-NOMBRE` | vuelve a bajar del API y **recalcula** todo. Pide confirmación: clona, instala y tarda ~60 s |
+
+---
+
+## Reproducir el pipeline
+
+Esto ya no hace falta para *usar* la skill — solo para regenerar los datos o
+auditar el modelo.
 
 ```bash
 git clone https://github.com/juandmg020407/Hackathon-Freeticket
@@ -49,9 +83,10 @@ curl "https://hackathon-freeticket.vercel.app/api/setup?handle=TU-NOMBRE" -o set
 python run.py
 ```
 
-`run.py` descarga los ocho recursos, cruza las dos plataformas, proyecta agosto
-y calcula las acciones recomendadas. **Unos 60 segundos la primera vez** (hay que
-bajar 60.000 filas) y ~14 s después, porque `raw/` queda cacheado.
+`run.py` descarga los ocho recursos, cruza las dos plataformas, proyecta agosto,
+calcula las acciones recomendadas y escribe el `dashboard.json` que consume la
+skill. **Unos 60 segundos la primera vez** (hay que bajar 60.000 filas) y ~14 s
+después, porque `raw/` queda cacheado.
 
 | comando | qué hace |
 |---|---|
@@ -59,22 +94,24 @@ bajar 60.000 filas) y ~14 s después, porque `raw/` queda cacheado.
 | `python run.py --force` | vuelve a bajar los datos del API |
 | `python run.py --experimento` | además compara los 8 modelos y reevalúa |
 | `python run.py --puerta` | además genera los links de puerta |
-| `python -m pytest tests -q` | 22 pruebas de las piezas frágiles |
+| `python -m pytest tests -q` | pruebas de las piezas frágiles |
 
 El token se lee de `setup.json`, de `.ft-hack.json` o de `FT_HACK_TOKEN`.
+
+Un clon recién hecho **ya responde consultas sin token ni pipeline**: el
+pronóstico va versionado en `outputs/`.
 
 ---
 
 ## Usar la skill
 
-Es la forma pensada para el día a día. **Abre el repo en Claude Code y pregunta
-en español** — la skill se carga sola porque vive en
-`.claude/skills/aforo-freeticket/`.
+Es la forma pensada para el día a día. **Instálala con el comando de arriba —o
+abre el repo en Claude Code, que la carga sola— y pregunta en español.**
 
 > **Tú:** ¿cómo va el Sin Filtro del 8 de agosto?
 >
 > **Claude:** Va flojo. Esperamos 238 personas de 623 entradas ya adquiridas
-> (rango 206–271). Capacidad 800, así que sobran 562 asientos.
+> (rango 176–305). Capacidad 800, así que sobran 562 asientos.
 >
 > El problema es la mezcla: el 100% de las entradas son cortesía, y la cortesía
 > entra al 38.7% mientras la pagada entra al 94%. Vender más entradas de este
@@ -96,26 +133,41 @@ Y lo que **no** responde, en vez de improvisar: shows de julio (ya pasaron, su
 asistencia es un dato), elasticidad de precios (no hay experimento en los datos)
 y datos personales de compradores.
 
-### Para usarla desde cualquier carpeta
-
-```bash
-cp -r .claude/skills/aforo-freeticket ~/.claude/skills/
-```
-
 ### Los comandos por debajo
 
 La skill no adivina: ejecuta estos comandos y reformula la salida. Puedes usarlos
-tú directamente desde la raíz del repo.
+tú directamente, desde la carpeta de la skill o desde la raíz del repo.
 
 ```bash
-python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
-python -m ft.consulta ft_evt_0060       # un show por id
-python -m ft.consulta --agenda          # los 30 shows, en orden de fecha
-python -m ft.consulta --vacios          # los que van a quedar más vacíos
-python -m ft.consulta --sobreventa      # cuántas entradas más caben sin riesgo
-python -m ft.consulta --modelo          # error, supuestos y dónde falla
-python -m ft.consulta --json            # todo estructurado, para graficar
+python scripts/aforo.py "Sin Filtro"      # todos los shows de ese acto
+python scripts/aforo.py ft_evt_0060       # un show por id
+python scripts/aforo.py --agenda          # los 30 shows, en orden de fecha
+python scripts/aforo.py --vacios          # los que van a quedar más vacíos
+python scripts/aforo.py --sobreventa      # cuántas entradas más caben sin riesgo
+python scripts/aforo.py --llegada         # a qué hora llega la gente y cuánta puerta
+python scripts/aforo.py --modelo          # error, supuestos y dónde falla
+python scripts/aforo.py --json            # todo estructurado, para graficar
 ```
+
+Dentro del repo, `python -m ft.consulta …` hace lo mismo: es un shim sobre el
+mismo script, para que no existan dos copias de la lógica que puedan divergir.
+
+### Por qué funciona sin el repositorio
+
+Todo sale de un solo archivo, `dashboard.json`, y el script que lo lee es stdlib
+pura. Las fuentes se resuelven en cascada, y **cada respuesta abre diciendo cuál
+usó y de cuándo es**:
+
+| orden | fuente | cuándo gana |
+|---|---|---|
+| 1 | `$FT_DASHBOARD` | lo fuerzas tú |
+| 2 | `outputs/dashboard.json` | estás dentro del repo → dato recién calculado |
+| 3 | `data/dashboard.json` | instalación normal: offline e instantáneo |
+| 4 | el publicado en GitHub | solo si faltan los tres anteriores |
+
+El congelado va antes que la red a propósito: una consulta no debe pagar latencia
+ni fallar sin conexión. Si el dashboard tiene más de una semana, la salida lo
+avisa en vez de dejarte creer que las cifras son de hoy.
 
 ---
 
@@ -127,7 +179,7 @@ llenado, asientos libres y palancas, más la ficha del modelo — y lo deja en
 
 Con eso, en Claude Code puedes pedir directamente:
 
-> *Con `python -m ft.consulta --json`, hazme un dashboard de agosto: entradas
+> *Con `python scripts/aforo.py --json`, hazme un dashboard de agosto: entradas
 > vendidas contra personas esperadas, coloreado por proporción de cortesía, con
 > el rango p10–p90 en cada barra.*
 
@@ -255,7 +307,7 @@ cupo de riesgo**. Y la pregunta del organizador deja de ser *"¿cuántas entrada
 quedan?"* para ser *"¿cuánto riesgo de desborde acepto?"*.
 
 ```bash
-python -m ft.consulta --sobreventa
+python scripts/aforo.py --sobreventa
 ```
 
 ---
@@ -360,7 +412,7 @@ venciendo aunque el hosting no sepa de TTL.
 El personal se dimensiona al **70% de ocupación**, no al límite: planificar al
 100% suena eficiente y en la práctica es una fila que crece toda la noche.
 
-**Curva de llegada** (`python -m ft.llegada`). Medida en julio: el 27.6% ya entró
+**Curva de llegada** (`python scripts/aforo.py --llegada`). Medida en julio: el 27.6% ya entró
 45 minutos antes, el 66.6% al cuarto de hora previo, y el pico cae entre −45 y
 −30 minutos. **Lo que dimensiona la puerta es el pico, no el total.**
 
@@ -384,10 +436,17 @@ ft/
 ├─ experimento.py     el experimento completo → reports/metrics.json
 ├─ forecast.py        simulación e intervalos
 ├─ prescribe.py       las tres palancas
-├─ consulta.py        lo que ejecuta la skill
+├─ dashboard.py       arma dashboard.json: lo único que la skill necesita
+├─ consulta.py        shim sobre el script de la skill
 ├─ llegada.py         curva de llegada
 └─ puerta.py          el link efímero
 .claude/skills/aforo-freeticket/   la skill instalable
+├─ SKILL.md           cuándo usarla y cómo responder
+├─ scripts/aforo.py   las respuestas — stdlib pura, sin dependencias
+├─ scripts/bootstrap.py  recalcular desde el API con tu propio token
+├─ data/dashboard.json   los datos que viajan con la skill
+└─ references/        modelo, datos y playbook
+.claude-plugin/       manifiestos para `/plugin marketplace add`
 docs/                 una nota por fase CRISP-DM
 notebooks/            EDA reproducible
 tests/                22 pruebas de las piezas frágiles

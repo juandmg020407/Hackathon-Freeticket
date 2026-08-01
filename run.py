@@ -10,27 +10,33 @@
 import sys
 import time
 
-from ft import fetch, forecast, match, overbooking, prescribe
+from ft import dashboard, fetch, forecast, match, overbooking, prescribe
 
 
 def main() -> int:
     t0 = time.time()
     force = "--force" in sys.argv
 
-    print("[1/5] Datos")
+    print("[1/6] Datos")
     fetch.main(force=force)
 
-    print("\n[2/5] Cruce Boom <-> FreeTicket")
+    print("\n[2/6] Cruce Boom <-> FreeTicket")
     match.main()
 
-    print("\n[3/5] Proyeccion de agosto")
+    print("\n[3/6] Proyeccion de agosto")
     forecast.main()
 
-    print("\n[4/5] Acciones recomendadas")
+    print("\n[4/6] Acciones recomendadas")
     prescribe.main()
 
-    print("\n[5/5] Sobreventa segura")
+    print("\n[5/6] Sobreventa segura")
     overbooking.main()
+
+    # La skill responde SOLO desde este archivo. Va al final y no en un comando
+    # aparte: si dependiera de que alguien se acuerde de correrlo, la copia que
+    # viaja con la skill envejeceria en silencio.
+    print("\n[6/6] Dashboard para la skill")
+    dashboard.main()
 
     if "--experimento" in sys.argv:
         print("\n[extra] Comparacion de modelos")
@@ -43,7 +49,7 @@ def main() -> int:
         puerta.generar()
 
     print(f"\nListo en {time.time() - t0:.1f}s — outputs/: matches.csv, "
-          f"forecast.csv, acciones.csv, overbooking.csv")
+          f"forecast.csv, acciones.csv, overbooking.csv, dashboard.json")
     return 0
 
 
