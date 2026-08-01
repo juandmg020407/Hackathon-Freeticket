@@ -14,7 +14,7 @@ import html
 import json
 from datetime import datetime, timedelta, timezone
 
-from .api import ROOT
+from .api import OUTPUTS, ROOT
 from .fetch import load
 from .llegada import curva_julio, personal_sugerido
 
@@ -128,7 +128,7 @@ def generar(event_id: str | None = None, ahora: datetime | None = None) -> list:
     expira = ahora + timedelta(hours=VIGENCIA_HORAS)
 
     eventos = {e["event_id"]: e for e in load("freeticket", "events")}
-    ruta = ROOT / "forecast_detalle.csv"
+    ruta = OUTPUTS / "forecast_detalle.csv"
     if not ruta.exists():
         raise SystemExit("Falta forecast_detalle.csv: corre antes 'python run.py'.")
     pron = {r["event_id"]: r for r in csv.DictReader(ruta.open(encoding="utf-8"))}

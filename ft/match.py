@@ -18,7 +18,7 @@ from __future__ import annotations
 import csv
 from collections import defaultdict
 
-from .api import ROOT
+from .api import OUTPUTS, asegurar_carpetas
 from .fetch import load
 from .normalize import (
     clave_nombre,
@@ -217,7 +217,8 @@ def main() -> list[dict]:
     users = load("boom", "users")
     filas = cruzar(sales, users)
 
-    salida = ROOT / "matches.csv"
+    asegurar_carpetas()
+    salida = OUTPUTS / "matches.csv"
     with salida.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=["sale_id", "boom_user_id", "confidence"])
         w.writeheader()
@@ -225,7 +226,7 @@ def main() -> list[dict]:
             w.writerow({k: f[k] for k in ("sale_id", "boom_user_id", "confidence")})
 
     # detalle con la evidencia, util para auditar el cruce
-    with (ROOT / "matches_detalle.csv").open("w", newline="", encoding="utf-8") as fh:
+    with (OUTPUTS / "matches_detalle.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(filas[0].keys()))
         w.writeheader()
         w.writerows(filas)

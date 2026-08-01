@@ -23,7 +23,7 @@ from collections import defaultdict
 
 import numpy as np
 
-from .api import ROOT
+from .api import OUTPUTS, asegurar_carpetas
 from .features import construir
 from .model import Modelo, evaluar_loo, sigma_show
 
@@ -156,13 +156,14 @@ def main() -> list[dict]:
             "tasa_esperada": round(float(p.mean()), 4),
         })
 
-    with (ROOT / "forecast.csv").open("w", newline="", encoding="utf-8") as fh:
+    asegurar_carpetas()
+    with (OUTPUTS / "forecast.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=["event_id", "expected_attendance", "p10", "p90"])
         w.writeheader()
         for f in filas_out:
             w.writerow({k: f[k] for k in ("event_id", "expected_attendance", "p10", "p90")})
 
-    with (ROOT / "forecast_detalle.csv").open("w", newline="", encoding="utf-8") as fh:
+    with (OUTPUTS / "forecast_detalle.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(filas_out[0].keys()))
         w.writeheader()
         w.writerows(filas_out)

@@ -16,7 +16,7 @@ import csv
 from collections import defaultdict
 from datetime import datetime, timezone
 
-from .api import ROOT
+from .api import OUTPUTS
 from .fetch import load
 
 HOY = datetime(2026, 8, 1, tzinfo=timezone.utc)
@@ -76,7 +76,7 @@ def construir() -> list[dict]:
     hist = HistorialBoom(load("boom", "tickets"))
 
     matches = {}
-    ruta = ROOT / "matches.csv"
+    ruta = OUTPUTS / "matches.csv"
     if ruta.exists():
         for r in csv.DictReader(ruta.open(encoding="utf-8")):
             if r["boom_user_id"]:

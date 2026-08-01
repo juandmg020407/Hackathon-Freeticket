@@ -18,6 +18,17 @@ API = os.environ.get("FT_HACK_API", "https://hackathon-freeticket.vercel.app")
 ROOT = Path(__file__).resolve().parent.parent
 PAGE = 1000  # tope del API
 
+# Carpetas del proyecto. RAW es cache descartable; OUTPUTS y REPORTS son entrega.
+RAW = ROOT / "raw"
+OUTPUTS = ROOT / "outputs"
+REPORTS = ROOT / "reports"
+FIGURES = REPORTS / "figures"
+
+
+def asegurar_carpetas() -> None:
+    for d in (RAW, OUTPUTS, REPORTS, FIGURES):
+        d.mkdir(parents=True, exist_ok=True)
+
 
 def token() -> str:
     """Token desde env var, .ft-hack.json o setup.json (en ese orden)."""
