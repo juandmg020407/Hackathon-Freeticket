@@ -1,0 +1,31 @@
+event_id,expected_attendance,p10,p90,artist_name,tickets_adquiridos,cortesias,pct_cortesia,compradores_en_boom,tasa_esperada
+ft_evt_0006,66,57,75,Mala Hora,122,122,1.0,71,0.5399
+ft_evt_0007,41,34,47,Mala Hora,78,78,1.0,60,0.52
+ft_evt_0008,53,51,56,Mala Hora,58,4,0.069,39,0.9208
+ft_evt_0009,34,32,36,Mala Hora,37,3,0.0811,28,0.9166
+ft_evt_0014,78,72,84,Micrófono Suelto,120,53,0.4417,62,0.6481
+ft_evt_0015,76,71,81,Micrófono Suelto,115,46,0.4,91,0.6617
+ft_evt_0016,50,45,56,Micrófono Suelto,88,49,0.5568,76,0.5709
+ft_evt_0017,34,31,38,Micrófono Suelto,48,15,0.3125,33,0.7183
+ft_evt_0023,167,161,173,Doble Sentido,192,32,0.1667,138,0.8711
+ft_evt_0024,69,65,72,Doble Sentido,80,18,0.225,39,0.8588
+ft_evt_0025,90,87,93,Doble Sentido,98,7,0.0714,79,0.9199
+ft_evt_0026,56,53,59,Doble Sentido,63,9,0.1429,55,0.8848
+ft_evt_0032,159,151,167,La Bodega Improvisa,201,65,0.3234,122,0.7911
+ft_evt_0033,75,71,78,La Bodega Improvisa,88,17,0.1932,39,0.8473
+ft_evt_0034,48,44,52,La Bodega Improvisa,61,20,0.3279,32,0.7843
+ft_evt_0035,56,52,59,La Bodega Improvisa,67,16,0.2388,39,0.8323
+ft_evt_0040,100,95,104,Trasnoche Cali,118,25,0.2119,64,0.8471
+ft_evt_0041,77,73,81,Trasnoche Cali,94,22,0.234,61,0.8197
+ft_evt_0042,57,54,61,Trasnoche Cali,71,19,0.2676,49,0.8051
+ft_evt_0043,28,22,34,Trasnoche Cali,65,65,1.0,37,0.4289
+ft_evt_0044,49,46,51,Trasnoche Cali,56,9,0.1607,42,0.8681
+ft_evt_0046,336,323,349,Tres Sillas,427,133,0.3115,273,0.7866
+ft_evt_0048,168,160,175,Cuento Corto,210,59,0.281,118,0.8001
+ft_evt_0050,397,389,404,Sin Filtro,424,8,0.0189,228,0.9363
+ft_evt_0052,320,305,334,Segunda Función,436,149,0.3417,262,0.7328
+ft_evt_0054,116,99,133,Cuento Corto,273,273,1.0,193,0.4243
+ft_evt_0056,357,350,364,Sin Filtro,378,2,0.0053,260,0.9455
+ft_evt_0058,102,87,117,Roast de Medianoche,232,232,1.0,157,0.4394
+ft_evt_0060,259,225,293,Sin Filtro,623,623,1.0,444,0.415
+ft_evt_0062,104,87,121,Los del Fondo,286,286,1.0,144,0.3637

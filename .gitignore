@@ -1,0 +1,17 @@
+# token del API — se genera con /api/setup, no se versiona
+setup.json
+.ft-hack.json
+
+# cache de datos descargados (se rehace con `python run.py --force`)
+raw/
+
+# links de puerta: caducan a las 3 h, no tiene sentido versionarlos
+puerta/
+
+.venv/
+__pycache__/
+*.pyc
+
+# scraper de appfreeticket.com, ajeno a esta entrega
+scrape_freeticket.py
+scraped/
