@@ -1,0 +1,1259 @@
+{
+  "generado": "2026-08-01T14:33:25",
+  "resumen": {
+    "shows": 30,
+    "entradas_adquiridas": 5209,
+    "asistencia_esperada": 3326,
+    "tasa_global": 0.6385,
+    "pct_cortesia": 0.4721
+  },
+  "tasas_de_referencia": {
+    "pagada": 0.94,
+    "cortesia": 0.387
+  },
+  "modelo": {
+    "campeon": "M1 · logística segmentada",
+    "test": {
+      "campeon": {
+        "log_loss": 0.3714587024511358,
+        "brier": 0.11536801912477489,
+        "ece": 0.016371201639165684,
+        "auc_roc": 0.8635011836766223,
+        "auc_pr": 0.9299203254322093,
+        "mae": 3.717750933103105,
+        "mediana_ae": 2.8761406984750124,
+        "p90_ae": 7.7894621684849525,
+        "mape": 0.04367067537486353,
+        "sesgo": 0.956141891162117,
+        "eventos": 11,
+        "mae_ic95": [
+          1.728260687366393,
+          6.303209252780121
+        ]
+      },
+      "baseline": {
+        "modelo": "B2 · tasa por tipo",
+        "mae": 7.667678139261849,
+        "mediana_ae": 3.616390245977783,
+        "p90_ae": 18.216556688662266,
+        "mape": 0.12529936173445552,
+        "sesgo": 2.458288106019101,
+        "eventos": 11,
+        "mae_ic95": [
+          3.723051817349504,
+          11.988196039151534
+        ]
+      },
+      "pareado_campeon_vs_baseline": {
+        "dif_media": -3.949927206158743,
+        "ic95": [
+          -7.16688083558849,
+          -1.1256316789355323
+        ],
+        "concluyente": true
+      }
+    }
+  },
+  "shows": [
+    {
+      "event_id": "ft_evt_0040",
+      "titulo": "Trasnoche Cali — residencia sábado",
+      "artista": "Trasnoche Cali",
+      "fecha": "2026-08-01T20:00:00+00:00",
+      "ciudad": "Cali",
+      "venue": "Sala Beethoven",
+      "es_residencia": true,
+      "capacidad": 150,
+      "entradas_adquiridas": 118,
+      "cortesias": 25,
+      "pct_cortesia": 0.2119,
+      "compradores_en_boom": 64,
+      "esperado": 94,
+      "p10": 89,
+      "p90": 99,
+      "tasa_esperada": 0.7992,
+      "llenado_esperado": 0.6267,
+      "asientos_libres": 56,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 56.0,
+          "alcance": 85
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 9.7,
+          "alcance": 25
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.2,
+          "alcance": 1
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0058",
+      "titulo": "Roast de Medianoche — Comedia sin Red",
+      "artista": "Roast de Medianoche",
+      "fecha": "2026-08-04T19:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Teatro Consubsidio",
+      "es_residencia": false,
+      "capacidad": 250,
+      "entradas_adquiridas": 232,
+      "cortesias": 232,
+      "pct_cortesia": 1.0,
+      "compradores_en_boom": 157,
+      "esperado": 96,
+      "p10": 81,
+      "p90": 110,
+      "tasa_esperada": 0.4129,
+      "llenado_esperado": 0.384,
+      "asientos_libres": 154,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 62.0,
+          "alcance": 121
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 38.7,
+          "alcance": 100
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 3.9,
+          "alcance": 19
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0014",
+      "titulo": "Micrófono Suelto — residencia martes",
+      "artista": "Micrófono Suelto",
+      "fecha": "2026-08-04T20:00:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Ace of Clubs",
+      "es_residencia": true,
+      "capacidad": 220,
+      "entradas_adquiridas": 120,
+      "cortesias": 53,
+      "pct_cortesia": 0.4417,
+      "compradores_en_boom": 62,
+      "esperado": 70,
+      "p10": 64,
+      "p90": 76,
+      "tasa_esperada": 0.582,
+      "llenado_esperado": 0.3182,
+      "asientos_libres": 150,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 20.5,
+          "alcance": 53
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.8,
+          "alcance": 4
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0032",
+      "titulo": "La Bodega Improvisa — residencia miércoles",
+      "artista": "La Bodega Improvisa",
+      "fecha": "2026-08-05T20:00:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "La Bodega del Chiste",
+      "es_residencia": true,
+      "capacidad": 250,
+      "entradas_adquiridas": 201,
+      "cortesias": 65,
+      "pct_cortesia": 0.3234,
+      "compradores_en_boom": 122,
+      "esperado": 150,
+      "p10": 141,
+      "p90": 158,
+      "tasa_esperada": 0.7452,
+      "llenado_esperado": 0.6,
+      "asientos_libres": 100,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 100.0,
+          "alcance": 185
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 25.2,
+          "alcance": 65
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.4,
+          "alcance": 2
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0023",
+      "titulo": "Doble Sentido — residencia jueves",
+      "artista": "Doble Sentido",
+      "fecha": "2026-08-06T20:30:00+00:00",
+      "ciudad": "Medellín",
+      "venue": "La Pascasia",
+      "es_residencia": true,
+      "capacidad": 250,
+      "entradas_adquiridas": 192,
+      "cortesias": 32,
+      "pct_cortesia": 0.1667,
+      "compradores_en_boom": 138,
+      "esperado": 159,
+      "p10": 152,
+      "p90": 165,
+      "tasa_esperada": 0.8279,
+      "llenado_esperado": 0.636,
+      "asientos_libres": 91,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 91.0,
+          "alcance": 168
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 12.4,
+          "alcance": 32
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.4,
+          "alcance": 2
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0056",
+      "titulo": "Sin Filtro — Especial de Improvisación",
+      "artista": "Sin Filtro",
+      "fecha": "2026-08-06T20:30:00+00:00",
+      "ciudad": "Medellín",
+      "venue": "Teatro Metropolitano",
+      "es_residencia": false,
+      "capacidad": 450,
+      "entradas_adquiridas": 378,
+      "cortesias": 2,
+      "pct_cortesia": 0.0053,
+      "compradores_en_boom": 260,
+      "esperado": 317,
+      "p10": 307,
+      "p90": 327,
+      "tasa_esperada": 0.8389,
+      "llenado_esperado": 0.7044,
+      "asientos_libres": 133,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 0.8,
+          "alcance": 2
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0006",
+      "titulo": "Mala Hora — residencia viernes",
+      "artista": "Mala Hora",
+      "fecha": "2026-08-07T20:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Casa E",
+      "es_residencia": true,
+      "capacidad": 180,
+      "entradas_adquiridas": 122,
+      "cortesias": 122,
+      "pct_cortesia": 1.0,
+      "compradores_en_boom": 71,
+      "esperado": 60,
+      "p10": 51,
+      "p90": 69,
+      "tasa_esperada": 0.4929,
+      "llenado_esperado": 0.3333,
+      "asientos_libres": 120,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 120.0,
+          "alcance": 202
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 38.7,
+          "alcance": 100
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 1.6,
+          "alcance": 8
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0052",
+      "titulo": "Segunda Función — Especial de Improvisación",
+      "artista": "Segunda Función",
+      "fecha": "2026-08-07T20:30:00+00:00",
+      "ciudad": "Pereira",
+      "venue": "Teatro Santiago Londoño",
+      "es_residencia": false,
+      "capacidad": 800,
+      "entradas_adquiridas": 436,
+      "cortesias": 149,
+      "pct_cortesia": 0.3417,
+      "compradores_en_boom": 262,
+      "esperado": 300,
+      "p10": 285,
+      "p90": 315,
+      "tasa_esperada": 0.6888,
+      "llenado_esperado": 0.375,
+      "asientos_libres": 500,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 38.7,
+          "alcance": 100
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 3.5,
+          "alcance": 17
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0060",
+      "titulo": "Sin Filtro — Material Nuevo",
+      "artista": "Sin Filtro",
+      "fecha": "2026-08-08T19:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Teatro Consubsidio",
+      "es_residencia": false,
+      "capacidad": 800,
+      "entradas_adquiridas": 623,
+      "cortesias": 623,
+      "pct_cortesia": 1.0,
+      "compradores_en_boom": 444,
+      "esperado": 238,
+      "p10": 206,
+      "p90": 271,
+      "tasa_esperada": 0.3822,
+      "llenado_esperado": 0.2975,
+      "asientos_libres": 562,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 38.7,
+          "alcance": 100
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 10.1,
+          "alcance": 49
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 1.5,
+          "alcance": 3
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0041",
+      "titulo": "Trasnoche Cali — residencia sábado",
+      "artista": "Trasnoche Cali",
+      "fecha": "2026-08-08T20:30:00+00:00",
+      "ciudad": "Cali",
+      "venue": "Sala Beethoven",
+      "es_residencia": true,
+      "capacidad": 150,
+      "entradas_adquiridas": 94,
+      "cortesias": 22,
+      "pct_cortesia": 0.234,
+      "compradores_en_boom": 61,
+      "esperado": 73,
+      "p10": 69,
+      "p90": 78,
+      "tasa_esperada": 0.7781,
+      "llenado_esperado": 0.4867,
+      "asientos_libres": 77,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 39.1,
+          "alcance": 75
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 8.5,
+          "alcance": 22
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.4,
+          "alcance": 2
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0015",
+      "titulo": "Micrófono Suelto — residencia martes",
+      "artista": "Micrófono Suelto",
+      "fecha": "2026-08-11T20:00:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Ace of Clubs",
+      "es_residencia": true,
+      "capacidad": 250,
+      "entradas_adquiridas": 115,
+      "cortesias": 46,
+      "pct_cortesia": 0.4,
+      "compradores_en_boom": 91,
+      "esperado": 64,
+      "p10": 58,
+      "p90": 70,
+      "tasa_esperada": 0.5542,
+      "llenado_esperado": 0.256,
+      "asientos_libres": 186,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 17.8,
+          "alcance": 46
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 1.2,
+          "alcance": 6
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0033",
+      "titulo": "La Bodega Improvisa — residencia miércoles",
+      "artista": "La Bodega Improvisa",
+      "fecha": "2026-08-12T20:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "La Bodega del Chiste",
+      "es_residencia": true,
+      "capacidad": 180,
+      "entradas_adquiridas": 88,
+      "cortesias": 17,
+      "pct_cortesia": 0.1932,
+      "compradores_en_boom": 39,
+      "esperado": 64,
+      "p10": 59,
+      "p90": 69,
+      "tasa_esperada": 0.7296,
+      "llenado_esperado": 0.3556,
+      "asientos_libres": 116,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 116.0,
+          "alcance": 215
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 6.6,
+          "alcance": 17
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.6,
+          "alcance": 3
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0024",
+      "titulo": "Doble Sentido — residencia jueves",
+      "artista": "Doble Sentido",
+      "fecha": "2026-08-13T20:30:00+00:00",
+      "ciudad": "Medellín",
+      "venue": "La Pascasia",
+      "es_residencia": true,
+      "capacidad": 150,
+      "entradas_adquiridas": 80,
+      "cortesias": 18,
+      "pct_cortesia": 0.225,
+      "compradores_en_boom": 39,
+      "esperado": 63,
+      "p10": 59,
+      "p90": 67,
+      "tasa_esperada": 0.7914,
+      "llenado_esperado": 0.42,
+      "asientos_libres": 87,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 87.0,
+          "alcance": 160
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 7.0,
+          "alcance": 18
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.8,
+          "alcance": 4
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0007",
+      "titulo": "Mala Hora — residencia viernes",
+      "artista": "Mala Hora",
+      "fecha": "2026-08-14T20:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Casa E",
+      "es_residencia": true,
+      "capacidad": 120,
+      "entradas_adquiridas": 78,
+      "cortesias": 78,
+      "pct_cortesia": 1.0,
+      "compradores_en_boom": 60,
+      "esperado": 38,
+      "p10": 31,
+      "p90": 45,
+      "tasa_esperada": 0.4859,
+      "llenado_esperado": 0.3167,
+      "asientos_libres": 82,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 82.0,
+          "alcance": 137
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 30.2,
+          "alcance": 78
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 1.5,
+          "alcance": 7
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0042",
+      "titulo": "Trasnoche Cali — residencia sábado",
+      "artista": "Trasnoche Cali",
+      "fecha": "2026-08-15T20:00:00+00:00",
+      "ciudad": "Cali",
+      "venue": "Sala Beethoven",
+      "es_residencia": true,
+      "capacidad": 150,
+      "entradas_adquiridas": 71,
+      "cortesias": 19,
+      "pct_cortesia": 0.2676,
+      "compradores_en_boom": 49,
+      "esperado": 54,
+      "p10": 50,
+      "p90": 58,
+      "tasa_esperada": 0.76,
+      "llenado_esperado": 0.36,
+      "asientos_libres": 96,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 39.1,
+          "alcance": 75
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 7.4,
+          "alcance": 19
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.6,
+          "alcance": 3
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0016",
+      "titulo": "Micrófono Suelto — residencia martes",
+      "artista": "Micrófono Suelto",
+      "fecha": "2026-08-18T20:00:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Ace of Clubs",
+      "es_residencia": true,
+      "capacidad": 220,
+      "entradas_adquiridas": 88,
+      "cortesias": 49,
+      "pct_cortesia": 0.5568,
+      "compradores_en_boom": 76,
+      "esperado": 49,
+      "p10": 44,
+      "p90": 54,
+      "tasa_esperada": 0.5535,
+      "llenado_esperado": 0.2227,
+      "asientos_libres": 171,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 19.0,
+          "alcance": 49
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 1.6,
+          "alcance": 8
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0048",
+      "titulo": "Cuento Corto — Show de Temporada",
+      "artista": "Cuento Corto",
+      "fecha": "2026-08-19T19:00:00+00:00",
+      "ciudad": "Medellín",
+      "venue": "Teatro Metropolitano",
+      "es_residencia": false,
+      "capacidad": 450,
+      "entradas_adquiridas": 210,
+      "cortesias": 59,
+      "pct_cortesia": 0.281,
+      "compradores_en_boom": 118,
+      "esperado": 152,
+      "p10": 143,
+      "p90": 160,
+      "tasa_esperada": 0.7229,
+      "llenado_esperado": 0.3378,
+      "asientos_libres": 298,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 22.8,
+          "alcance": 59
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 3.0,
+          "alcance": 6
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.6,
+          "alcance": 3
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0062",
+      "titulo": "Los del Fondo — Función Única",
+      "artista": "Los del Fondo",
+      "fecha": "2026-08-19T19:30:00+00:00",
+      "ciudad": "Cali",
+      "venue": "Teatro Jorge Isaacs",
+      "es_residencia": false,
+      "capacidad": 600,
+      "entradas_adquiridas": 286,
+      "cortesias": 286,
+      "pct_cortesia": 1.0,
+      "compradores_en_boom": 144,
+      "esperado": 98,
+      "p10": 82,
+      "p90": 114,
+      "tasa_esperada": 0.3419,
+      "llenado_esperado": 0.1633,
+      "asientos_libres": 502,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 38.7,
+          "alcance": 100
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 4.9,
+          "alcance": 24
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0034",
+      "titulo": "La Bodega Improvisa — residencia miércoles",
+      "artista": "La Bodega Improvisa",
+      "fecha": "2026-08-19T20:00:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "La Bodega del Chiste",
+      "es_residencia": true,
+      "capacidad": 120,
+      "entradas_adquiridas": 61,
+      "cortesias": 20,
+      "pct_cortesia": 0.3279,
+      "compradores_en_boom": 32,
+      "esperado": 45,
+      "p10": 41,
+      "p90": 49,
+      "tasa_esperada": 0.7376,
+      "llenado_esperado": 0.375,
+      "asientos_libres": 75,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 75.0,
+          "alcance": 138
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 7.7,
+          "alcance": 20
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0050",
+      "titulo": "Sin Filtro — Especial de Improvisación",
+      "artista": "Sin Filtro",
+      "fecha": "2026-08-20T19:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "La Bodega del Chiste",
+      "es_residencia": false,
+      "capacidad": 800,
+      "entradas_adquiridas": 424,
+      "cortesias": 8,
+      "pct_cortesia": 0.0189,
+      "compradores_en_boom": 228,
+      "esperado": 367,
+      "p10": 356,
+      "p90": 377,
+      "tasa_esperada": 0.8654,
+      "llenado_esperado": 0.4587,
+      "asientos_libres": 433,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 3.1,
+          "alcance": 8
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 1.5,
+          "alcance": 3
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0025",
+      "titulo": "Doble Sentido — residencia jueves",
+      "artista": "Doble Sentido",
+      "fecha": "2026-08-20T20:00:00+00:00",
+      "ciudad": "Medellín",
+      "venue": "La Pascasia",
+      "es_residencia": true,
+      "capacidad": 220,
+      "entradas_adquiridas": 98,
+      "cortesias": 7,
+      "pct_cortesia": 0.0714,
+      "compradores_en_boom": 79,
+      "esperado": 83,
+      "p10": 79,
+      "p90": 87,
+      "tasa_esperada": 0.846,
+      "llenado_esperado": 0.3773,
+      "asientos_libres": 137,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 137.0,
+          "alcance": 256
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 2.7,
+          "alcance": 7
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0008",
+      "titulo": "Mala Hora — residencia viernes",
+      "artista": "Mala Hora",
+      "fecha": "2026-08-21T20:00:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Casa E",
+      "es_residencia": true,
+      "capacidad": 120,
+      "entradas_adquiridas": 58,
+      "cortesias": 4,
+      "pct_cortesia": 0.069,
+      "compradores_en_boom": 39,
+      "esperado": 50,
+      "p10": 47,
+      "p90": 53,
+      "tasa_esperada": 0.8563,
+      "llenado_esperado": 0.4167,
+      "asientos_libres": 70,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 70.0,
+          "alcance": 117
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 1.5,
+          "alcance": 4
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.4,
+          "alcance": 2
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0046",
+      "titulo": "Tres Sillas — Función Única",
+      "artista": "Tres Sillas",
+      "fecha": "2026-08-22T19:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Ace of Clubs",
+      "es_residencia": false,
+      "capacidad": 1200,
+      "entradas_adquiridas": 427,
+      "cortesias": 133,
+      "pct_cortesia": 0.3115,
+      "compradores_en_boom": 273,
+      "esperado": 293,
+      "p10": 277,
+      "p90": 309,
+      "tasa_esperada": 0.6872,
+      "llenado_esperado": 0.2442,
+      "asientos_libres": 907,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 38.7,
+          "alcance": 100
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 10.1,
+          "alcance": 20
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 2.1,
+          "alcance": 10
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0043",
+      "titulo": "Trasnoche Cali — residencia sábado",
+      "artista": "Trasnoche Cali",
+      "fecha": "2026-08-22T20:00:00+00:00",
+      "ciudad": "Cali",
+      "venue": "Sala Beethoven",
+      "es_residencia": true,
+      "capacidad": 150,
+      "entradas_adquiridas": 65,
+      "cortesias": 65,
+      "pct_cortesia": 1.0,
+      "compradores_en_boom": 37,
+      "esperado": 27,
+      "p10": 22,
+      "p90": 33,
+      "tasa_esperada": 0.4225,
+      "llenado_esperado": 0.18,
+      "asientos_libres": 123,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 38.6,
+          "alcance": 74
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 25.2,
+          "alcance": 65
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.6,
+          "alcance": 3
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0017",
+      "titulo": "Micrófono Suelto — residencia martes",
+      "artista": "Micrófono Suelto",
+      "fecha": "2026-08-25T20:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Ace of Clubs",
+      "es_residencia": true,
+      "capacidad": 120,
+      "entradas_adquiridas": 48,
+      "cortesias": 15,
+      "pct_cortesia": 0.3125,
+      "compradores_en_boom": 33,
+      "esperado": 32,
+      "p10": 28,
+      "p90": 35,
+      "tasa_esperada": 0.663,
+      "llenado_esperado": 0.2667,
+      "asientos_libres": 88,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 5.8,
+          "alcance": 15
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.2,
+          "alcance": 1
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0054",
+      "titulo": "Cuento Corto — Comedia sin Red",
+      "artista": "Cuento Corto",
+      "fecha": "2026-08-26T19:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Teatro Consubsidio",
+      "es_residencia": false,
+      "capacidad": 800,
+      "entradas_adquiridas": 273,
+      "cortesias": 273,
+      "pct_cortesia": 1.0,
+      "compradores_en_boom": 193,
+      "esperado": 107,
+      "p10": 91,
+      "p90": 124,
+      "tasa_esperada": 0.3924,
+      "llenado_esperado": 0.1338,
+      "asientos_libres": 693,
+      "palancas": [
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 38.7,
+          "alcance": 100
+        },
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 10.6,
+          "alcance": 21
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 4.5,
+          "alcance": 22
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0035",
+      "titulo": "La Bodega Improvisa — residencia miércoles",
+      "artista": "La Bodega Improvisa",
+      "fecha": "2026-08-26T20:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "La Bodega del Chiste",
+      "es_residencia": true,
+      "capacidad": 180,
+      "entradas_adquiridas": 67,
+      "cortesias": 16,
+      "pct_cortesia": 0.2388,
+      "compradores_en_boom": 39,
+      "esperado": 54,
+      "p10": 50,
+      "p90": 58,
+      "tasa_esperada": 0.8047,
+      "llenado_esperado": 0.3,
+      "asientos_libres": 126,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 126.0,
+          "alcance": 234
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 6.2,
+          "alcance": 16
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0026",
+      "titulo": "Doble Sentido — residencia jueves",
+      "artista": "Doble Sentido",
+      "fecha": "2026-08-27T20:30:00+00:00",
+      "ciudad": "Medellín",
+      "venue": "La Pascasia",
+      "es_residencia": true,
+      "capacidad": 220,
+      "entradas_adquiridas": 63,
+      "cortesias": 9,
+      "pct_cortesia": 0.1429,
+      "compradores_en_boom": 55,
+      "esperado": 52,
+      "p10": 49,
+      "p90": 55,
+      "tasa_esperada": 0.8263,
+      "llenado_esperado": 0.2364,
+      "asientos_libres": 168,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 168.0,
+          "alcance": 316
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 3.5,
+          "alcance": 9
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0009",
+      "titulo": "Mala Hora — residencia viernes",
+      "artista": "Mala Hora",
+      "fecha": "2026-08-28T20:30:00+00:00",
+      "ciudad": "Bogotá",
+      "venue": "Casa E",
+      "es_residencia": true,
+      "capacidad": 120,
+      "entradas_adquiridas": 37,
+      "cortesias": 3,
+      "pct_cortesia": 0.0811,
+      "compradores_en_boom": 28,
+      "esperado": 32,
+      "p10": 30,
+      "p90": 35,
+      "tasa_esperada": 0.8753,
+      "llenado_esperado": 0.2667,
+      "asientos_libres": 88,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 88.0,
+          "alcance": 147
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 1.2,
+          "alcance": 3
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.0,
+          "alcance": 0
+        }
+      ]
+    },
+    {
+      "event_id": "ft_evt_0044",
+      "titulo": "Trasnoche Cali — residencia sábado",
+      "artista": "Trasnoche Cali",
+      "fecha": "2026-08-29T20:00:00+00:00",
+      "ciudad": "Cali",
+      "venue": "Sala Beethoven",
+      "es_residencia": true,
+      "capacidad": 220,
+      "entradas_adquiridas": 56,
+      "cortesias": 9,
+      "pct_cortesia": 0.1607,
+      "compradores_en_boom": 42,
+      "esperado": 45,
+      "p10": 42,
+      "p90": 48,
+      "tasa_esperada": 0.8073,
+      "llenado_esperado": 0.2045,
+      "asientos_libres": 175,
+      "palancas": [
+        {
+          "palanca": "invitar",
+          "supuesto": "fuerte",
+          "impacto_personas": 39.1,
+          "alcance": 75
+        },
+        {
+          "palanca": "convertir",
+          "supuesto": "medio",
+          "impacto_personas": 3.5,
+          "alcance": 9
+        },
+        {
+          "palanca": "canal",
+          "supuesto": "débil",
+          "impacto_personas": 0.2,
+          "alcance": 1
+        }
+      ]
+    }
+  ]
+}

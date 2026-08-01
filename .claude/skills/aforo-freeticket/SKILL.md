@@ -36,6 +36,7 @@ python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
 python -m ft.consulta ft_evt_0060       # un show por id
 python -m ft.consulta --agenda          # los 30 shows de agosto, en orden
 python -m ft.consulta --modelo          # qué tan bien predice y qué supone
+python -m ft.consulta --json            # todo estructurado, para graficar
 ```
 
 La salida ya viene estructurada en tres bloques —el veredicto, el **porqué** y
@@ -62,6 +63,23 @@ usuario:
 canales al azar. Presentar "mueve el canal y ganas 10 personas" como una promesa
 sería engañar. Di "lo que se observó", no "lo que va a pasar".
 
+## Si piden un tablero, un gráfico o un artifact
+
+`python -m ft.consulta --json` devuelve los 30 shows con aforo, rango, mezcla,
+llenado, asientos libres y palancas, más la ficha del modelo. También lo deja en
+`outputs/dashboard.json`. **Úsalo como fuente y no transcribas cifras a mano.**
+
+Al construir la visualización:
+
+- **El aforo esperado va con su rango**, no solo el punto. Una barra sin p10–p90
+  esconde justo lo que hace útil el pronóstico.
+- **Contrasta entradas contra personas.** Es la tesis entera: hay shows con más
+  entradas y menos gente. Una barra de "vendidas" junto a una de "esperadas"
+  cuenta la historia sin explicarla.
+- **Colorea por proporción de cortesía**, que es lo que explica la diferencia.
+- No inventes series que el JSON no trae (histórico de ventas, ingresos por
+  show, comparación con años anteriores): esos datos no existen aquí.
+
 ## Preguntas frecuentes y dónde está la respuesta
 
 | pregunta | comando |
@@ -72,6 +90,7 @@ sería engañar. Di "lo que se observó", no "lo que va a pasar".
 | ¿a qué hora llega la gente? | `python -m ft.llegada` |
 | ¿qué tan confiable es esto? | `ft.consulta --modelo` |
 | ¿a quién invito? | la palanca "invitar"; el detalle por persona está en `ft.prescribe` |
+| hazme un tablero / gráfico | `ft.consulta --json` y construye desde ahí |
 
 ## Lo que esta skill NO puede responder
 
@@ -101,3 +120,10 @@ cd Hackathon-Freeticket && pip install -r requirements.txt
 curl "https://hackathon-freeticket.vercel.app/api/setup?handle=TU-NOMBRE" -o setup.json
 python run.py
 ```
+
+Esta skill vive en `.claude/skills/aforo-freeticket/`, así que Claude Code la
+carga sola al abrir el proyecto. Para usarla desde cualquier carpeta, copia esa
+carpeta a `~/.claude/skills/`.
+
+Todos los comandos se ejecutan **desde la raíz del repositorio**, que es donde
+están `outputs/` y `raw/`.

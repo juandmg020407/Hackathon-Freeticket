@@ -8,6 +8,7 @@ reports/metrics.json — nunca se inventa un número.
     python -m ft.consulta ft_evt_0060       por id de evento
     python -m ft.consulta --agenda          los shows que vienen, en orden
     python -m ft.consulta --modelo          qué tan bien predice y qué supone
+    python -m ft.consulta --json            todo en JSON, para graficar
 """
 
 from __future__ import annotations
@@ -177,6 +178,77 @@ def agenda() -> str:
     return "\n".join(L)
 
 
+def datos_json() -> str:
+    """Todo lo proyectado, en JSON: para construir un tablero o un gráfico.
+
+    Una sola llamada trae los 30 shows con su aforo, rango, mezcla y palancas,
+    mas la ficha del modelo. Asi quien dibuje no tiene que abrir cuatro CSV ni
+    adivinar de donde salio un numero.
+    """
+    pron = _cargar("forecast_detalle.csv")
+    acciones = _cargar("acciones.csv")
+    meta = _eventos_meta()
+    por_evento: dict[str, list] = {}
+    for a in acciones:
+        por_evento.setdefault(a["event_id"], []).append({
+            "palanca": a["palanca"], "supuesto": a["supuesto"],
+            "impacto_personas": float(a["impacto_personas"]),
+            "alcance": int(a["alcance"]),
+        })
+
+    shows = []
+    for r in pron:
+        m = meta.get(r["event_id"], {})
+        cap = int(m.get("capacity") or 0)
+        esperado = int(r["expected_attendance"])
+        shows.append({
+            "event_id": r["event_id"],
+            "titulo": m.get("title"),
+            "artista": r["artist_name"],
+            "fecha": m.get("starts_at"),
+            "ciudad": m.get("city"),
+            "venue": m.get("venue"),
+            "es_residencia": m.get("is_residency"),
+            "capacidad": cap,
+            "entradas_adquiridas": int(r["tickets_adquiridos"]),
+            "cortesias": int(r["cortesias"]),
+            "pct_cortesia": float(r["pct_cortesia"]),
+            "compradores_en_boom": int(r["compradores_en_boom"]),
+            "esperado": esperado,
+            "p10": int(r["p10"]),
+            "p90": int(r["p90"]),
+            "tasa_esperada": float(r["tasa_esperada"]),
+            "llenado_esperado": round(esperado / cap, 4) if cap else None,
+            "asientos_libres": max(0, cap - esperado) if cap else None,
+            "palancas": sorted(por_evento.get(r["event_id"], []),
+                               key=lambda p: -p["impacto_personas"]),
+        })
+    shows.sort(key=lambda s: s["fecha"] or "")
+
+    metricas = {}
+    ruta = REPORTS / "metrics.json"
+    if ruta.exists():
+        m = json.loads(ruta.read_text(encoding="utf-8"))
+        metricas = {"campeon": m["campeon"], "test": m["test"]}
+
+    total = sum(s["esperado"] for s in shows)
+    vendidas = sum(s["entradas_adquiridas"] for s in shows)
+    return json.dumps({
+        "generado": datetime.now().isoformat(timespec="seconds"),
+        "resumen": {
+            "shows": len(shows),
+            "entradas_adquiridas": vendidas,
+            "asistencia_esperada": total,
+            "tasa_global": round(total / vendidas, 4) if vendidas else None,
+            "pct_cortesia": round(sum(s["cortesias"] for s in shows) / vendidas, 4)
+            if vendidas else None,
+        },
+        "tasas_de_referencia": {"pagada": 0.94, "cortesia": 0.387},
+        "modelo": metricas,
+        "shows": shows,
+    }, ensure_ascii=False, indent=2)
+
+
 def ficha_modelo() -> str:
     ruta = REPORTS / "metrics.json"
     if not ruta.exists():
@@ -218,6 +290,12 @@ def main(argv: list[str]) -> int:
     arg = argv[0]
     if arg == "--agenda":
         print(agenda())
+    elif arg == "--json":
+        texto = datos_json()
+        # tambien a disco: redirigir con `>` en PowerShell le mete un BOM y
+        # deja el JSON ilegible para json.load
+        (OUTPUTS / "dashboard.json").write_text(texto, encoding="utf-8")
+        print(texto)
     elif arg == "--modelo":
         print(ficha_modelo())
     elif arg.startswith("ft_evt_"):
