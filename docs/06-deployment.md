@@ -10,25 +10,48 @@ repositorio `agent-skills` instalable con `npx skills add`. El patrón es
 La consecuencia para este proyecto: **el entregable no es el modelo, es la
 capacidad que el modelo habilita, empaquetada para que un agente la invoque.**
 
+Se sigue el mismo patrón: la skill se instala con `npx skills add`, igual que las
+oficiales de FreeTicket.
+
 | capa | artefacto | quién lo consume |
 |---|---|---|
-| Skill | `skill/SKILL.md` + referencias | el agente, cuando alguien pregunta |
-| Consulta | `ft/consulta.py` | la skill, y cualquiera desde terminal |
-| Datos | `outputs/*.csv` | el pipeline y auditoría |
-| Puerta | `puerta/*.html` | quien abre la sala el viernes |
+| Skill | `SKILL.md` + referencias | el agente, cuando alguien pregunta |
+| Consulta | `scripts/aforo.py` | la skill, y cualquiera desde terminal |
+| Datos | `data/dashboard.json` | la consulta — y nada más |
+| Generación | `ft/dashboard.py` + `outputs/*.csv` | el pipeline y auditoría |
+| Puerta | `docs/*.html` publicadas | quien abre la sala el viernes |
 
 ## 1. La skill
 
 ```bash
-python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
-python -m ft.consulta ft_evt_0060       # un show por id
-python -m ft.consulta --agenda          # los 30 shows de agosto
-python -m ft.consulta --modelo          # error, supuestos y dónde falla
+npx skills add juandmg020407/Hackathon-Freeticket -g
+```
+
+**Un comando, sin repositorio, sin `pip install`, sin token.** Eso obligó a una
+decisión de diseño: la capa de consulta no puede depender del pipeline. Se parte
+en dos —`ft/dashboard.py` **genera** un único JSON, `scripts/aforo.py` lo
+**presenta**— y solo la segunda viaja con la skill, en stdlib pura.
+
+Es lo que separa una skill demostrable de una instalable: la anterior decía
+«copia esta carpeta a `~/.claude/skills/`» y, copiada, no respondía nada, porque
+sus comandos vivían en el repo.
+
+```bash
+python scripts/aforo.py "Sin Filtro"      # todos los shows de ese acto
+python scripts/aforo.py ft_evt_0060       # un show por id
+python scripts/aforo.py --agenda          # los 30 shows de agosto
+python scripts/aforo.py --modelo          # error, supuestos y dónde falla
 ```
 
 Responde en tres bloques: **veredicto**, **por qué** y **qué puedes hacer**.
-Todo sale de `outputs/` y `reports/metrics.json`: si el comando no da una cifra,
-no existe. La skill instruye explícitamente a no inventar números.
+Todo sale del dashboard: si el comando no da una cifra, no existe. La skill
+instruye explícitamente a no inventar números.
+
+**Y cada respuesta declara de cuándo son los datos.** Un pronóstico congelado que
+se presenta como vivo es peor que no tener pronóstico: los shows siguen
+vendiendo. Si la copia tiene más de una semana, la salida lo avisa y ofrece las
+dos vías de refresco —bajar el dashboard publicado, o recalcular desde el API con
+un token propio, que el hackathon entrega sin registro.
 
 Dos comportamientos que se probaron a propósito:
 
@@ -90,7 +113,7 @@ cd /tmp/ghp && git add -A && git commit -m "actualiza aforo" && git push origin 
 ## 3. La curva de llegada
 
 ```bash
-python -m ft.llegada
+python scripts/aforo.py --llegada
 ```
 
 Medida en julio: el 27.6% ya entró 45 minutos antes, el 66.6% al cuarto de hora
@@ -108,7 +131,7 @@ palanca declara la fuerza de su supuesto y la skill traslada esa etiqueta:
 | convertir cortesías | medio | brecha real, descontada un 30% |
 | mover de canal | **débil** | techo optimista; el canal probablemente selecciona |
 
-Detalle en [`skill/references/playbook.md`](../skill/references/playbook.md).
+Detalle en [`references/playbook.md`](../.claude/skills/aforo-freeticket/references/playbook.md).
 
 ## Reproducibilidad
 
@@ -131,6 +154,6 @@ descartable; `outputs/` y `reports/` son la entrega.
 3. **Cerrar el ciclo del cruce.** Cada check-in real es una etiqueta nueva para
    el matcher, que hoy no aprende de sus aciertos.
 4. **Exponerlo como MCP.** La skill funciona en local; FreeTicket ya tiene
-   servidor MCP, y `ft.consulta` encaja como tool ahí.
+   servidor MCP, y `aforo.py` encaja como tool ahí.
 5. **Validar las palancas con un experimento.** Un A/B de canal de cortesías
    convertiría el supuesto débil en una medición.

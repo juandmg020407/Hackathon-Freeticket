@@ -157,7 +157,7 @@ Cambia cómo se piensa el acceso:
   ser *"¿cuánto riesgo de desborde acepto?"*.
 
 ```bash
-python -m ft.consulta --sobreventa
+python scripts/aforo.py --sobreventa
 ```
 
 **Supuesto declarado:** las entradas nuevas se parecen a las ya vendidas. Si se
