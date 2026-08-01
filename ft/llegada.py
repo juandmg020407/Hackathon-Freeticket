@@ -52,17 +52,22 @@ def perfil(esperado: float, curva: dict[int, float] | None = None) -> list[dict]
 
 
 def personal_sugerido(esperado: float, curva: dict[int, float] | None = None,
-                      por_persona_min: float = 0.25) -> dict:
+                      por_persona_min: float = 0.25, utilizacion: float = 0.7) -> dict:
     """Staff de puerta a partir del pico, no del total.
 
     por_persona_min: minutos que toma revisar una entrada (15 s por defecto).
+    utilizacion:     que tan ocupada se planea tener a la puerta. Dimensionar al
+                     100% suena eficiente y en la practica es una fila que crece
+                     toda la noche: cualquier demora se acumula porque no hay
+                     holgura para absorberla. Al 70% la cola se disuelve sola.
     """
     filas = perfil(esperado, curva)
     if not filas:
         return {"pico": 0.0, "staff": 1, "franja_pico": None}
     pico = max(filas, key=lambda f: f["personas"])
-    # personas del pico x minutos por persona, repartido en la franja
-    staff = max(1, int(-(-pico["personas"] * por_persona_min // FRANJA)))
+    # minutos de trabajo del pico contra los minutos utiles de la franja
+    carga = pico["personas"] * por_persona_min
+    staff = max(1, int(-(-carga // (FRANJA * utilizacion))))
     return {
         "pico": pico["personas"],
         "franja_pico": pico["etiqueta"],

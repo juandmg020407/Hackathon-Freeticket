@@ -83,7 +83,7 @@ PLANTILLA = """<!doctype html>
   <div class="grid">
     <div class="card">
       <div class="lbl">Gente en puerta</div>
-      <div class="val">{staff} <small>personas</small></div>
+      <div class="val">{staff} <small>{staff_unidad}</small></div>
     </div>
     <div class="card">
       <div class="lbl">Momento más cargado</div>
@@ -173,6 +173,7 @@ def generar(event_id: str | None = None, ahora: datetime | None = None) -> list:
             vendidas=vendidas,
             p10=r["p10"], p90=r["p90"],
             staff=s["staff"],
+            staff_unidad="persona" if s["staff"] == 1 else "personas",
             franja_pico=html.escape(str(s["franja_pico"])),
             pico=f"{s['pico']:.0f}",
             barras=barras, ejes=ejes, aviso=aviso,
