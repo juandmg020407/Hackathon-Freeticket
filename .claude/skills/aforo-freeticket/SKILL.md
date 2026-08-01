@@ -111,7 +111,7 @@ las próximas entradas se parezcan a las ya vendidas.
 | ¿cuántos vienen en total en agosto? | `ft.consulta --agenda` |
 | ¿cuáles van a quedar vacíos? | `ft.consulta --vacios` |
 | ¿puedo vender más entradas? | `ft.consulta --sobreventa` |
-| ¿cuánta gente pongo en la puerta? | `python -m ft.puerta <event_id>` genera la página |
+| ¿cuánta gente pongo en la puerta? | está publicado: `juandmg020407.github.io/Hackathon-Freeticket/<event_id>.html` · se regenera con `python -m ft.puerta` |
 | ¿a qué hora llega la gente? | `python -m ft.llegada` |
 | ¿qué tan confiable es esto? | `ft.consulta --modelo` |
 | ¿a quién invito? | la palanca "invitar"; el detalle por persona está en `ft.prescribe` |

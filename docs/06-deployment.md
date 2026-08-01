@@ -43,20 +43,49 @@ La primera versión decía *"va flojo"* a un show cuya asistencia esperada era d
 distintos con soluciones distintas —uno se arregla vendiendo y el otro cambiando
 la mezcla— y ahora los separa explícitamente.
 
-## 2. El link efímero de puerta
+## 2. El link de puerta — publicado
+
+**https://juandmg020407.github.io/Hackathon-Freeticket/**
+
+Un índice con los 30 shows y una página por show, para el celular de quien está
+en la entrada: aforo esperado, rango, personal sugerido y curva de llegada. Sin
+dependencias, sin servidor, sin instalar nada.
 
 ```bash
-python run.py --puerta
+python run.py --puerta      # genera site/
 ```
 
-Una página por show, un solo archivo sin dependencias, para el celular de quien
-está en la entrada: aforo esperado, rango, personal sugerido y curva de llegada.
-**Caduca sola a las 3 horas**; la caducidad va dentro del archivo, así que sigue
-venciendo aunque se sirva desde cualquier estático.
+### La vigencia va anclada al show, no a la generación
+
+El brief pide un link que caduque solo a las 3 horas. Contar esas horas desde
+que se **genera** el archivo obliga a generarlo justo antes de abrir puertas, y
+cualquier link enviado con antelación llega muerto. Anclarlo al **show**
+resuelve las dos cosas: se manda el lunes para el viernes y sigue caducando
+solo. Tres estados, que la página distingue sola:
+
+| estado | cuándo | qué muestra |
+|---|---|---|
+| antes | hasta 6 h antes | el aforo, y avisa que el show sigue vendiendo |
+| **puerta** | de −6 h a +3 h | modo operativo: es lo que se usa esa noche |
+| vencido | pasadas 3 h del inicio | el show ya pasó, la cifra no vale |
+
+La caducidad va **dentro del archivo**, así que sigue venciendo aunque el
+hosting no sepa de TTL.
 
 El personal se dimensiona al **70% de ocupación**, no al límite: planificar al
 100% suena eficiente y en la práctica es una fila que crece toda la noche,
 porque no hay holgura para absorber una demora.
+
+### Republicar
+
+El sitio vive en la rama `gh-pages`, separada del código:
+
+```bash
+python run.py --puerta
+git worktree add --orphan -b gh-pages /tmp/ghp     # solo la primera vez
+cp site/* /tmp/ghp/ && touch /tmp/ghp/.nojekyll
+cd /tmp/ghp && git add -A && git commit -m "actualiza aforo" && git push origin gh-pages
+```
 
 ## 3. La curva de llegada
 

@@ -91,21 +91,36 @@ baseline. Calibración ECE 0.016.
 
 ## 3. ¿Sirve el viernes? — «si el de la puerta no lo puede usar sin ti, no está terminado»
 
-`python run.py --puerta` genera **un archivo HTML por show**: aforo esperado,
-rango, cuánta gente poner y a qué hora llega. Sin dependencias, sin servidor,
-sin instalar nada. Se abre en el celular.
+**Está publicado: https://juandmg020407.github.io/Hackathon-Freeticket/**
 
-**Caduca sola a las 3 horas** y la caducidad va **dentro del archivo**, así que
-sigue venciendo aunque se sirva desde cualquier estático o se reenvíe.
+Es un link real, se abre en cualquier celular y no necesita que nadie corra
+nada. Un índice con los 30 shows y una página por show: aforo esperado, rango,
+cuánta gente poner en la puerta y a qué hora llega.
+
+### La vigencia va anclada al show, no a la generación
+
+El brief pide que caduque solo a las 3 horas. Contar esas horas desde que se
+genera el archivo obliga a generarlo justo antes de abrir puertas, y cualquier
+link mandado con antelación llega muerto. Anclarlo al show resuelve las dos
+cosas — se manda el lunes para el viernes y sigue caducando solo:
+
+| estado | cuándo | qué muestra |
+|---|---|---|
+| antes | hasta 6 h antes | el aforo, y avisa que el show sigue vendiendo |
+| **puerta** | de −6 h a +3 h | modo operativo, lo que se usa esa noche |
+| vencido | pasadas 3 h del inicio | el show ya pasó |
+
+La caducidad va **dentro del archivo**, así que sigue venciendo aunque el
+hosting no sepa de TTL.
 
 El personal se dimensiona al **70% de ocupación**, no al límite: planificar al
 100% suena eficiente y en la práctica es una fila que crece toda la noche,
 porque no queda holgura para absorber una demora.
 
-**Lo que falta para ser honesto:** el archivo es autocontenido pero *alguien*
-tiene que generarlo y enviarlo. No hay hosting propio. Se puede mandar como
-archivo por WhatsApp o subir a cualquier estático, pero un "link" de verdad
-requeriría desplegarlo — es el paso que queda.
+**Lo que sigue siendo manual:** republicar tras recalcular. El sitio es estático
+y hay que empujarlo a `gh-pages` (cuatro comandos, documentados en
+[`06-deployment.md`](06-deployment.md)). En producción esto sería un cron o una
+GitHub Action, no una persona.
 
 ---
 

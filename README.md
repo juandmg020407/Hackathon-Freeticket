@@ -5,7 +5,13 @@ de Boom —dos plataformas que hablan de la misma gente y nunca se han mirado—
 proyecta, para cada show de agosto, cuánta gente cruza la puerta. Después dice
 **qué hacer** con los shows que van flojos.
 
-El entregable no es un CSV: es una **skill** que responde en lenguaje natural.
+El entregable no es un CSV: es una **skill** que responde en lenguaje natural, y
+un **link que abre el de la puerta desde el celular**.
+
+### 👉 [juandmg020407.github.io/Hackathon-Freeticket](https://juandmg020407.github.io/Hackathon-Freeticket/)
+
+El aforo de los 30 shows, publicado. Cada show tiene su página: entra en modo
+puerta 6 h antes y caduca 3 h después del inicio.
 
 ---
 
@@ -340,11 +346,16 @@ Hay un test que falla ruidosamente si un evento aparece en dos conjuntos.
 
 ## Extras del brief
 
-**Link de puerta** (`python run.py --puerta`). Una página por show, un archivo
-sin dependencias, para el celular de quien abre la sala: aforo esperado, rango,
-personal sugerido y curva de llegada. **Caduca sola a las 3 horas** — la
-caducidad va dentro del archivo, así que sigue venciendo aunque se sirva desde
-cualquier estático.
+**Link de puerta** — publicado en
+[juandmg020407.github.io/Hackathon-Freeticket](https://juandmg020407.github.io/Hackathon-Freeticket/),
+se regenera con `python run.py --puerta`. Una página por show, un archivo sin
+dependencias, para el celular de quien abre la sala.
+
+La vigencia va **anclada al show, no a la generación**: entra en modo puerta 6 h
+antes y caduca 3 h después del inicio. Contar 3 horas desde que se genera el
+archivo obligaría a generarlo justo antes de abrir, y cualquier link mandado con
+antelación llegaría muerto. La caducidad va dentro del archivo, así que sigue
+venciendo aunque el hosting no sepa de TTL.
 
 El personal se dimensiona al **70% de ocupación**, no al límite: planificar al
 100% suena eficiente y en la práctica es una fila que crece toda la noche.

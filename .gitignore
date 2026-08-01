@@ -5,7 +5,8 @@ setup.json
 # cache de datos descargados (se rehace con `python run.py --force`)
 raw/
 
-# links de puerta: caducan a las 3 h, no tiene sentido versionarlos
+# sitio de puerta: se genera y se publica en la rama gh-pages, no en main
+site/
 puerta/
 
 .venv/
