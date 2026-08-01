@@ -1,0 +1,111 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Puerta · Trasnoche Cali — residencia sábado</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0e0f13; color:#f2f3f5;
+         font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+         padding:20px 16px 48px; }
+  a { color:inherit; }
+  .wrap { max-width:560px; margin:0 auto; }
+  .kicker { font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+            color:#8b93a7; }
+  h1 { font-size:23px; line-height:1.25; margin:6px 0 2px; text-wrap:balance; }
+  .cuando { color:#a7aec2; font-size:14px; margin-bottom:22px; }
+  .card { background:#171a21; border:1px solid #262b36; border-radius:14px;
+          padding:20px; margin-bottom:14px; }
+  .cifra { font-size:68px; font-weight:700; line-height:1; letter-spacing:-.03em;
+           font-variant-numeric:tabular-nums; }
+  .cifra small { font-size:16px; font-weight:500; color:#a7aec2; letter-spacing:0; }
+  .rango { color:#a7aec2; font-size:15px; margin-top:10px; }
+  .rango b { color:#f2f3f5; font-variant-numeric:tabular-nums; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .grid .card { margin:0; padding:16px; }
+  .lbl { font-size:12px; color:#8b93a7; text-transform:uppercase;
+         letter-spacing:.08em; margin-bottom:6px; }
+  .val { font-size:27px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .val small { font-size:13px; color:#a7aec2; font-weight:500; }
+  .barra { display:flex; align-items:flex-end; gap:5px; height:88px; margin:14px 0 6px; }
+  .barra div { flex:1; background:#3b6ef5; border-radius:4px 4px 0 0; min-height:3px; }
+  .barra div.pico { background:#f5a03b; }
+  .ejes { display:flex; gap:5px; font-size:10px; color:#8b93a7; }
+  .ejes span { flex:1; text-align:center; }
+  .nota { color:#8b93a7; font-size:13px; margin-top:16px; }
+  .aviso { background:#1d1608; border-color:#4a3a12; color:#f0c987; }
+  .previo { background:#0f1720; border-color:#1e3549; color:#8fc3f0; }
+  .pill { display:inline-block; padding:3px 11px; border-radius:999px;
+          font-size:11px; font-weight:650; letter-spacing:.06em;
+          text-transform:uppercase; }
+  .pill.vivo { background:#123524; color:#5ddc9a; }
+  .pill.previo { background:#0f2436; color:#6fb6ef; }
+  #vencido { display:none; text-align:center; padding:64px 20px; }
+  #vencido .cifra { font-size:40px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th { text-align:left; font-size:11px; text-transform:uppercase; color:#8b93a7;
+       letter-spacing:.08em; padding:0 8px 8px 0; font-weight:600; }
+  td { padding:11px 8px 11px 0; border-top:1px solid #21262f;
+       font-variant-numeric:tabular-nums; }
+  td.show { font-weight:600; }
+  .fecha { color:#a7aec2; font-size:12px; }
+  .tabla-scroll { overflow-x:auto; }
+</style>
+<div class="wrap" id="vivo">
+  <div class="kicker">Aforo estimado · puerta</div>
+  <h1>Trasnoche Cali — residencia sábado</h1>
+  <div class="cuando">sábado 1 de agosto, 20:00 · Sala Beethoven</div>
+
+  <div class="card">
+    <div class="lbl">Esperamos que entren</div>
+    <div class="cifra">94 <small>de 118 entradas</small></div>
+    <div class="rango">Entre <b>90</b> y <b>99</b> personas · 8 de cada 10 noches</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="lbl">Gente en puerta</div>
+      <div class="val">1 <small>persona</small></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Momento más cargado</div>
+      <div class="val">-45 min</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lbl">Cómo llega la gente</div>
+    <div class="barra"><div class="" style="height:33%" title="6 personas"></div><div class="pico" style="height:100%" title="20 personas"></div><div class="" style="height:88%" title="17 personas"></div><div class="" style="height:100%" title="19 personas"></div><div class="" style="height:96%" title="19 personas"></div><div class="" style="height:65%" title="13 personas"></div></div>
+    <div class="ejes"><span>-60</span><span>-45</span><span>-30</span><span>-15</span><span>inicio</span><span>+15</span></div>
+    <div class="nota">Pico de <b>20</b> personas en 15 minutos.</div>
+  </div>
+
+  
+
+  <div class="nota"><a href="index.html">← todos los shows</a> · el link caduca
+  solo el 1 de agosto a las 23:00.</div>
+</div>
+
+<div id="vencido" class="wrap">
+  <div class="cifra">Link vencido</div>
+  <p class="nota">Este aforo se calculó para Trasnoche Cali — residencia sábado y ya pasó.<br>
+     <a href="index.html">Ver los shows que vienen</a></p>
+</div>
+
+<script>
+  var abre = 1785592800000, cierra = 1785625200000;
+  function revisar() {
+    var t = Date.now();
+    document.getElementById('vencido').style.display = t > cierra ? 'block' : 'none';
+    document.getElementById('vivo').style.display = t > cierra ? 'none' : 'block';
+    var p = document.getElementById('estado');
+    if (p) {
+      var vivo = t >= abre && t <= cierra;
+      p.className = 'pill ' + (vivo ? 'vivo' : 'previo');
+      p.textContent = vivo ? 'en puerta' : 'faltan ' +
+        Math.ceil((abre - t) / 86400000) + ' días';
+    }
+  }
+  revisar();
+  setInterval(revisar, 30000);
+</script>
