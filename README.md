@@ -105,6 +105,7 @@ tú directamente desde la raíz del repo.
 python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
 python -m ft.consulta ft_evt_0060       # un show por id
 python -m ft.consulta --agenda          # los 30 shows, en orden de fecha
+python -m ft.consulta --vacios          # los que van a quedar más vacíos
 python -m ft.consulta --modelo          # error, supuestos y dónde falla
 python -m ft.consulta --json            # todo estructurado, para graficar
 ```

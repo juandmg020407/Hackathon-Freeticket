@@ -7,6 +7,7 @@ reports/metrics.json — nunca se inventa un número.
     python -m ft.consulta "Sin Filtro"      por artista (todos sus shows)
     python -m ft.consulta ft_evt_0060       por id de evento
     python -m ft.consulta --agenda          los shows que vienen, en orden
+    python -m ft.consulta --vacios          los que van a quedar más vacíos
     python -m ft.consulta --modelo          qué tan bien predice y qué supone
     python -m ft.consulta --json            todo en JSON, para graficar
 """
@@ -178,6 +179,44 @@ def agenda() -> str:
     return "\n".join(L)
 
 
+def vacios(n: int = 8) -> str:
+    """Los shows con menor llenado esperado y qué palanca les conviene."""
+    pron = _cargar("forecast_detalle.csv")
+    meta = _eventos_meta()
+    acciones = _cargar("acciones.csv")
+    mejor: dict[str, dict] = {}
+    for a in acciones:
+        act = mejor.get(a["event_id"])
+        if act is None or float(a["impacto_personas"]) > float(act["impacto_personas"]):
+            mejor[a["event_id"]] = a
+
+    filas = []
+    for r in pron:
+        cap = int(meta[r["event_id"]].get("capacity") or 0)
+        if not cap:
+            continue
+        esperado = int(r["expected_attendance"])
+        filas.append((esperado / cap, r, cap, esperado))
+    filas.sort(key=lambda x: x[0])
+
+    L = [f"{'show':24} {'ciudad':10} {'cap':>5} {'entradas':>9} {'entran':>7} "
+         f"{'llenado':>8} {'cortesía':>9}  qué hacer"]
+    for llenado, r, cap, esperado in filas[:n]:
+        a = mejor.get(r["event_id"])
+        que = (f"{a['palanca']} → +{float(a['impacto_personas']):.0f} "
+               f"[supuesto {a['supuesto']}]") if a else "—"
+        L.append(f"{r['artist_name'][:24]:24} "
+                 f"{meta[r['event_id']].get('city', '')[:10]:10} {cap:>5} "
+                 f"{r['tickets_adquiridos']:>9} {esperado:>7} {llenado:>7.0%} "
+                 f"{float(r['pct_cortesia']):>8.0%}  {que}")
+    L.append("")
+    L.append("«llenado» es sobre la capacidad de la sala; «cortesía», la parte de "
+             "las entradas que no se pagaron.")
+    L.append("Un llenado bajo con tasa de asistencia alta es problema de venta, "
+             "no de asistencia: aún queda tiempo para vender.")
+    return "\n".join(L)
+
+
 def datos_json() -> str:
     """Todo lo proyectado, en JSON: para construir un tablero o un gráfico.
 
@@ -290,6 +329,8 @@ def main(argv: list[str]) -> int:
     arg = argv[0]
     if arg == "--agenda":
         print(agenda())
+    elif arg == "--vacios":
+        print(vacios())
     elif arg == "--json":
         texto = datos_json()
         # tambien a disco: redirigir con `>` en PowerShell le mete un BOM y

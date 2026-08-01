@@ -20,8 +20,11 @@ si el show va flojo.
 
 Un show que "vendió" 500 con la mitad en cortesías no llena. El caso de libro
 está en los datos: **Sin Filtro** tiene dos shows en agosto. Uno con 424
-entradas casi todas pagadas mete ~397 personas. Otro con **623 entradas 100%
-cortesía mete ~238**. Más entradas, mucha menos gente.
+entradas casi todas pagadas mete ~367 personas. Otro con **623 entradas 100%
+cortesía mete ~238**. Doscientas entradas más, 129 personas menos.
+
+(Estas dos cifras son ilustrativas y pueden moverse al reejecutar el pipeline.
+Para responder, saca siempre el número del comando, no de aquí.)
 
 Si alguien pregunta "¿cómo va la venta?", la respuesta útil no es el total
 vendido: es el aforo esperado y la mezcla que lo explica.
@@ -35,9 +38,14 @@ existe.
 python -m ft.consulta "Sin Filtro"      # todos los shows de ese acto
 python -m ft.consulta ft_evt_0060       # un show por id
 python -m ft.consulta --agenda          # los 30 shows de agosto, en orden
+python -m ft.consulta --vacios          # los que van a quedar más vacíos
 python -m ft.consulta --modelo          # qué tan bien predice y qué supone
 python -m ft.consulta --json            # todo estructurado, para graficar
 ```
+
+Prefiere estos comandos antes que escribir tu propio script sobre los CSV: ya
+resuelven los cruces y los formatos, y en PowerShell un `python -c` con
+f-strings se rompe porque el shell se come las llaves.
 
 La salida ya viene estructurada en tres bloques —el veredicto, el **porqué** y
 **qué puedes hacer**— para que la reformules en el tono de la conversación. No
@@ -86,6 +94,7 @@ Al construir la visualización:
 |---|---|
 | ¿cuánta gente entra al show del viernes? | `ft.consulta <artista o id>` |
 | ¿cuántos vienen en total en agosto? | `ft.consulta --agenda` |
+| ¿cuáles van a quedar vacíos? | `ft.consulta --vacios` |
 | ¿cuánta gente pongo en la puerta? | `python -m ft.puerta <event_id>` genera la página |
 | ¿a qué hora llega la gente? | `python -m ft.llegada` |
 | ¿qué tan confiable es esto? | `ft.consulta --modelo` |
