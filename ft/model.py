@@ -25,6 +25,17 @@ L2_BASE = 1e-3      # apenas regulariza las señales principales
 L2_ARTISTA = 12.0   # encoge el efecto de artista hacia 0
 
 
+def falta(v) -> bool:
+    """Ausente, venga como None (dicts) o como NaN (pandas).
+
+    No es lo mismo 'no tiene historial en Boom' que 'su tasa es 0': si esto se
+    confunde, el 37.9% de compradores nuevos entra al modelo como si fueran
+    fieles con tasa cero. Y `NaN is not None` es True, asi que comprobar solo
+    None deja pasar los nulos que vienen de un DataFrame.
+    """
+    return v is None or (isinstance(v, float) and v != v)
+
+
 def fit_logistic(X, y, penal, iters=60, tol=1e-9):
     """Logistica por IRLS (Newton) con L2 por columna."""
     n, k = X.shape
@@ -77,24 +88,28 @@ class Disenio:
                 1.0 if f["canal"] == "ADMIN" else 0.0,
                 1.0 if f["canal"] == "RRPP" else 0.0,
             ]
+            dias = f["dias_anticipacion"]
+            ultimo_dia = 0.0 if falta(dias) else float(dias <= 1)
             if self.segmento == "cortesia":
                 rc = f["rate_consumo"]
+                sin_rc = falta(rc)
+                n_boom = 0.0 if falta(f["n_boom"]) else float(f["n_boom"])
                 base = [
                     1.0,
                     1.0 if f["en_boom"] else 0.0,
-                    1.0 if rc is not None else 0.0,
-                    (rc - 0.75) if rc is not None else 0.0,   # centrado en el 75% del brief
-                    np.log1p(f["n_boom"]) / 3.0,
+                    0.0 if sin_rc else 1.0,
+                    0.0 if sin_rc else (rc - 0.75),   # centrado en el 75% del brief
+                    np.log1p(n_boom) / 3.0,
                     1.0 if f["has_membership"] else 0.0,
                     1.0 if f["misma_ciudad"] else 0.0,
-                    1.0 if (f["dias_anticipacion"] or 99) <= 1 else 0.0,
+                    ultimo_dia,
                 ] + canal
             else:
                 base = [
                     1.0,
                     1.0 if f["tipo"] == "Preferencial" else 0.0,
                     1.0 if f["tipo"] == "VIP" else 0.0,
-                    1.0 if (f["dias_anticipacion"] or 99) <= 1 else 0.0,
+                    ultimo_dia,
                 ] + canal
             art = [0.0] * n_art
             i = self.idx_art.get(f["artist_id"])
@@ -115,7 +130,7 @@ class Modelo:
         self.dis = {}
         self.w = {}
         for seg, sel in (("cortesia", True), ("pagada", False)):
-            sub = [f for f in filas_julio if f["es_cortesia"] is sel]
+            sub = [f for f in filas_julio if bool(f["es_cortesia"]) == sel]
             d = Disenio(sub, seg)
             X = d.matriz(sub)
             y = np.array([1.0 if f["y"] else 0.0 for f in sub])
@@ -126,7 +141,7 @@ class Modelo:
         """Probabilidad de cruzar la puerta, por fila, en el orden dado."""
         p = np.zeros(len(filas))
         for seg, sel in (("cortesia", True), ("pagada", False)):
-            ids = [i for i, f in enumerate(filas) if f["es_cortesia"] is sel]
+            ids = [i for i, f in enumerate(filas) if bool(f["es_cortesia"]) == sel]
             if not ids:
                 continue
             sub = [filas[i] for i in ids]
