@@ -1,0 +1,91 @@
+event_id,artista,esperado,capacidad,asientos_libres,palanca,supuesto,impacto_personas,alcance
+ft_evt_0006,Mala Hora,60,180,120,invitar,fuerte,120.0,202
+ft_evt_0006,Mala Hora,60,180,120,convertir,medio,38.7,100
+ft_evt_0006,Mala Hora,60,180,120,canal,débil,1.6,8
+ft_evt_0007,Mala Hora,38,120,82,invitar,fuerte,82.0,137
+ft_evt_0007,Mala Hora,38,120,82,convertir,medio,30.2,78
+ft_evt_0007,Mala Hora,38,120,82,canal,débil,1.5,7
+ft_evt_0008,Mala Hora,50,120,70,invitar,fuerte,70.0,117
+ft_evt_0008,Mala Hora,50,120,70,convertir,medio,1.5,4
+ft_evt_0008,Mala Hora,50,120,70,canal,débil,0.4,2
+ft_evt_0009,Mala Hora,32,120,88,invitar,fuerte,88.0,147
+ft_evt_0009,Mala Hora,32,120,88,convertir,medio,1.2,3
+ft_evt_0009,Mala Hora,32,120,88,canal,débil,0.0,0
+ft_evt_0014,Micrófono Suelto,70,220,150,convertir,medio,20.5,53
+ft_evt_0014,Micrófono Suelto,70,220,150,canal,débil,0.8,4
+ft_evt_0014,Micrófono Suelto,70,220,150,invitar,fuerte,0.0,0
+ft_evt_0015,Micrófono Suelto,64,250,186,convertir,medio,17.8,46
+ft_evt_0015,Micrófono Suelto,64,250,186,canal,débil,1.2,6
+ft_evt_0015,Micrófono Suelto,64,250,186,invitar,fuerte,0.0,0
+ft_evt_0016,Micrófono Suelto,49,220,171,convertir,medio,19.0,49
+ft_evt_0016,Micrófono Suelto,49,220,171,canal,débil,1.6,8
+ft_evt_0016,Micrófono Suelto,49,220,171,invitar,fuerte,0.0,0
+ft_evt_0017,Micrófono Suelto,32,120,88,convertir,medio,5.8,15
+ft_evt_0017,Micrófono Suelto,32,120,88,canal,débil,0.2,1
+ft_evt_0017,Micrófono Suelto,32,120,88,invitar,fuerte,0.0,0
+ft_evt_0023,Doble Sentido,159,250,91,invitar,fuerte,91.0,168
+ft_evt_0023,Doble Sentido,159,250,91,convertir,medio,12.4,32
+ft_evt_0023,Doble Sentido,159,250,91,canal,débil,0.4,2
+ft_evt_0024,Doble Sentido,63,150,87,invitar,fuerte,87.0,160
+ft_evt_0024,Doble Sentido,63,150,87,convertir,medio,7.0,18
+ft_evt_0024,Doble Sentido,63,150,87,canal,débil,0.8,4
+ft_evt_0025,Doble Sentido,83,220,137,invitar,fuerte,137.0,256
+ft_evt_0025,Doble Sentido,83,220,137,convertir,medio,2.7,7
+ft_evt_0025,Doble Sentido,83,220,137,canal,débil,0.0,0
+ft_evt_0026,Doble Sentido,52,220,168,invitar,fuerte,168.0,316
+ft_evt_0026,Doble Sentido,52,220,168,convertir,medio,3.5,9
+ft_evt_0026,Doble Sentido,52,220,168,canal,débil,0.0,0
+ft_evt_0032,La Bodega Improvisa,150,250,100,invitar,fuerte,100.0,185
+ft_evt_0032,La Bodega Improvisa,150,250,100,convertir,medio,25.2,65
+ft_evt_0032,La Bodega Improvisa,150,250,100,canal,débil,0.4,2
+ft_evt_0033,La Bodega Improvisa,64,180,116,invitar,fuerte,116.0,215
+ft_evt_0033,La Bodega Improvisa,64,180,116,convertir,medio,6.6,17
+ft_evt_0033,La Bodega Improvisa,64,180,116,canal,débil,0.6,3
+ft_evt_0034,La Bodega Improvisa,45,120,75,invitar,fuerte,75.0,138
+ft_evt_0034,La Bodega Improvisa,45,120,75,convertir,medio,7.7,20
+ft_evt_0034,La Bodega Improvisa,45,120,75,canal,débil,0.0,0
+ft_evt_0035,La Bodega Improvisa,54,180,126,invitar,fuerte,126.0,234
+ft_evt_0035,La Bodega Improvisa,54,180,126,convertir,medio,6.2,16
+ft_evt_0035,La Bodega Improvisa,54,180,126,canal,débil,0.0,0
+ft_evt_0040,Trasnoche Cali,94,150,56,invitar,fuerte,56.0,85
+ft_evt_0040,Trasnoche Cali,94,150,56,convertir,medio,9.7,25
+ft_evt_0040,Trasnoche Cali,94,150,56,canal,débil,0.2,1
+ft_evt_0041,Trasnoche Cali,73,150,77,invitar,fuerte,39.1,75
+ft_evt_0041,Trasnoche Cali,73,150,77,convertir,medio,8.5,22
+ft_evt_0041,Trasnoche Cali,73,150,77,canal,débil,0.4,2
+ft_evt_0042,Trasnoche Cali,54,150,96,invitar,fuerte,39.1,75
+ft_evt_0042,Trasnoche Cali,54,150,96,convertir,medio,7.4,19
+ft_evt_0042,Trasnoche Cali,54,150,96,canal,débil,0.6,3
+ft_evt_0043,Trasnoche Cali,27,150,123,invitar,fuerte,38.6,74
+ft_evt_0043,Trasnoche Cali,27,150,123,convertir,medio,25.2,65
+ft_evt_0043,Trasnoche Cali,27,150,123,canal,débil,0.6,3
+ft_evt_0044,Trasnoche Cali,45,220,175,invitar,fuerte,39.1,75
+ft_evt_0044,Trasnoche Cali,45,220,175,convertir,medio,3.5,9
+ft_evt_0044,Trasnoche Cali,45,220,175,canal,débil,0.2,1
+ft_evt_0046,Tres Sillas,293,1200,907,convertir,medio,38.7,100
+ft_evt_0046,Tres Sillas,293,1200,907,invitar,fuerte,10.1,20
+ft_evt_0046,Tres Sillas,293,1200,907,canal,débil,2.1,10
+ft_evt_0048,Cuento Corto,152,450,298,convertir,medio,22.8,59
+ft_evt_0048,Cuento Corto,152,450,298,invitar,fuerte,3.0,6
+ft_evt_0048,Cuento Corto,152,450,298,canal,débil,0.6,3
+ft_evt_0050,Sin Filtro,367,800,433,convertir,medio,3.1,8
+ft_evt_0050,Sin Filtro,367,800,433,invitar,fuerte,1.5,3
+ft_evt_0050,Sin Filtro,367,800,433,canal,débil,0.0,0
+ft_evt_0052,Segunda Función,300,800,500,convertir,medio,38.7,100
+ft_evt_0052,Segunda Función,300,800,500,canal,débil,3.5,17
+ft_evt_0052,Segunda Función,300,800,500,invitar,fuerte,0.0,0
+ft_evt_0054,Cuento Corto,107,800,693,convertir,medio,38.7,100
+ft_evt_0054,Cuento Corto,107,800,693,invitar,fuerte,10.6,21
+ft_evt_0054,Cuento Corto,107,800,693,canal,débil,4.5,22
+ft_evt_0056,Sin Filtro,317,450,133,convertir,medio,0.8,2
+ft_evt_0056,Sin Filtro,317,450,133,invitar,fuerte,0.0,0
+ft_evt_0056,Sin Filtro,317,450,133,canal,débil,0.0,0
+ft_evt_0058,Roast de Medianoche,96,250,154,invitar,fuerte,62.0,121
+ft_evt_0058,Roast de Medianoche,96,250,154,convertir,medio,38.7,100
+ft_evt_0058,Roast de Medianoche,96,250,154,canal,débil,3.9,19
+ft_evt_0060,Sin Filtro,238,800,562,convertir,medio,38.7,100
+ft_evt_0060,Sin Filtro,238,800,562,canal,débil,10.1,49
+ft_evt_0060,Sin Filtro,238,800,562,invitar,fuerte,1.5,3
+ft_evt_0062,Los del Fondo,98,600,502,convertir,medio,38.7,100
+ft_evt_0062,Los del Fondo,98,600,502,canal,débil,4.9,24
+ft_evt_0062,Los del Fondo,98,600,502,invitar,fuerte,0.0,0
